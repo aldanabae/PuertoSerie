@@ -15,21 +15,30 @@ public class puerto2 {
         List<String> lstFreeSerialPort = serialPort.getFreeSerialPort();//Gets a list of serial ports free 
         if(lstFreeSerialPort.size()>0){//if there are free ports
             Parameters parameters = new Parameters();//Create a parameter object
-            parameters.setPort("COM4");//assigns the first port found
+            parameters.setPort("COM1");//assigns the first port found
             parameters.setBaudRate(Baud._460800);//assigns baud rate
             parameters.setByteSize("8");// assigns byte size
             parameters.setParity("N");// assigns parity
             Com com  = new  Com(parameters);// With the "parameters" creates a "Com"
             System.out.println(com.getPort());
             
-            for (int i = 0; i < trama.length; i++) {
+            //ENVIA BYTES
+            com.sendSingleData(trama[0]);
+            for (int i = 0; i < 7; i++) {
                 com.sendSingleData(trama[i]);
-                System.out.println(trama[i]);
+                System.out.printf("%02X ", trama[i]);
             }
-                  
+            
+            System.out.println("");   
+//            
+//            //CANTIDAD DE BYTES A LEER
+//            byte[] longitudAUX = new byte[]{trama[5], trama[4]};
+//            int longitud = convertirByteAInt(longitudAUX);
+//            System.out.println("longitud:      "+longitud);
+//            
             for (int i = 0; i < 100; i++) {//Send and receive data every 800 milliseconds
                 int  dataReceived =com.receiveSingleCharAsInteger();
-                System.out. println("Recibido: "+Integer.toHexString(dataReceived));
+                System.out.println("Recibido: "+Integer.toHexString(dataReceived));
                 Thread.sleep(100);//Wait 0.8 seconds
             }
             System.out.println("Fin de la transmision");
@@ -38,8 +47,16 @@ public class puerto2 {
         	System.out.println("No hay puertos libres.");
         }   
    }
-     
     
+    //CONVIERTE 2 BYTES A INT, RECIBE DE LOW A HIGH
+//    public int convertirByteAInt(byte[] b){          
+//    int value= 0;
+//    for(int i=0;i<b.length;i++){                
+//    int n=(b[i]<0?(int)b[i]+256:(int)b[i])<<(8*i);   
+//        value+=n;
+//    }         
+//    return value;       
+//}
 }
 
     
