@@ -5,7 +5,7 @@ public class Main {
     
     public static void main (String[] arg) throws Exception{
    
-        int idDispositivo=1;
+        int idDispositivo=2;
         int nroFuncion=3;
         int direccionInicial=1;
         int longitud=3;

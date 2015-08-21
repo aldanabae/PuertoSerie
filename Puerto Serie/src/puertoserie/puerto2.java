@@ -23,7 +23,6 @@ public class puerto2 {
             System.out.println(com.getPort());
             
             //ENVIA BYTES
-            com.sendSingleData(trama[0]);
             for (int i = 0; i < 7; i++) {
                 com.sendSingleData(trama[i]);
                 System.out.printf("%02X ", trama[i]);
