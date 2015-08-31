@@ -15,17 +15,17 @@ public class puerto2 {
         List<String> lstFreeSerialPort = serialPort.getFreeSerialPort();//Gets a list of serial ports free 
         if(lstFreeSerialPort.size()>0){//if there are free ports
             Parameters parameters = new Parameters();//Create a parameter object
-            parameters.setPort("COM1");//assigns the first port found
-            parameters.setBaudRate(Baud._460800);//assigns baud rate
+            parameters.setPort("COM4");//assigns the first port found
+            parameters.setBaudRate(Baud._9600);//assigns baud rate
             parameters.setByteSize("8");// assigns byte size
             parameters.setParity("N");// assigns parity
             Com com  = new  Com(parameters);// With the "parameters" creates a "Com"
             System.out.println(com.getPort());
             
             //ENVIA BYTES
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 8 ; i++) {
                 com.sendSingleData(trama[i]);
-                System.out.printf("%02X ", trama[i]);
+               // System.out.printf("%02X ", trama[i]);
             }
             
             System.out.println("");   
