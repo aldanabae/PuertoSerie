@@ -2,16 +2,16 @@
 package puertoserie;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Main {
+public class Scan {
     
-    public static void main (String[] arg) throws Exception{
-   
-        int idDispositivo=1;
-        int nroFuncion=3;
-        int direccionInicial=1;
-        int cantidadVariables=3;
-        String puerto="COM4";
+    PuertoSerie a = new PuertoSerie();
+    
+    public void pedirDatos(int idDispositivo, int nroFuncion, int direccionInicial,
+                            int cantidadVariables, String puerto){
+        
         ArrayList tramaEnviada = new ArrayList();
         
         //CONVIERTE INT A BYTE
@@ -55,14 +55,25 @@ public class Main {
         //byte[] tramaConCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow, byteCRCHigh, byteCRCLow};
         
         //ENVIA TRAMA
-        PuertoSerie a = new PuertoSerie(puerto);
-        a.enviar(tramaEnviada);
-        ArrayList datosRecibidos = a.recibir();
         
-        System.out.println("Trama recibida: ");
+        try {
+            a.configurar(puerto);
+            a.enviar(tramaEnviada);
+            ArrayList datosRecibidos = a.recibir();
+            
+            System.out.println("Trama recibida: ");
         
-        for (int i = 0; i < datosRecibidos.size(); i++) {
-            System.out.printf("%H ", datosRecibidos.get(i));
+            for (int i = 0; i < datosRecibidos.size(); i++) {
+                System.out.printf("%H ", datosRecibidos.get(i));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Scan.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
+        
+        
+        
+        
+        
+    }
+    
 }

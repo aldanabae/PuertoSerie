@@ -16,7 +16,7 @@ public class PuertoSerie {
     
     Com com;
     
-    public PuertoSerie(String puerto) throws Exception {
+    public void configurar(String puerto) throws Exception {
         SerialPort serialPort = new SerialPort();
         List<String> lstFreeSerialPort = serialPort.getFreeSerialPort();//Gets a list of serial ports free 
         if(lstFreeSerialPort.size()>0){//if there are free ports
@@ -26,7 +26,6 @@ public class PuertoSerie {
             parameters.setByteSize("8");// assigns byte size
             parameters.setParity("N");// assigns parity
             com  = new Com(parameters);// With the "parameters" creates a "Com"
-            System.out.println(com.getPort());
         }
     }
     
