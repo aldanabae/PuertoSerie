@@ -91,8 +91,7 @@ public class Scan {
                 // CONVIERTE BYTES A INT PARA ENVIAR A PANTALLA
                 for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString()); i++) {
                     int j=i+1;
-                    int high = (byte)tramaRecibe.get(3+i) << 8 ;
-                    System.out.println("Direccion inicial High en binario: "+Integer.toBinaryString(high & 0xFF));
+                    int high = (byte)tramaRecibe.get(3+i) << 8;
                     int low = (byte)tramaRecibe.get(3+j);
                     int nro = high + low;
                     System.out.println(" ---> "+nro);
