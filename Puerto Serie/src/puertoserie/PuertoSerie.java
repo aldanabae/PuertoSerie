@@ -39,9 +39,10 @@ public class PuertoSerie {
         ArrayList tramaRecibida = new ArrayList();
         for (int i = 0; i < 50; i++) {//100 Send and receive data every 800 milliseconds
             int  datoRecibido = com.receiveSingleCharAsInteger();
-            tramaRecibida.add(datoRecibido);
+            tramaRecibida.add((byte)datoRecibido);
             //Thread.sleep(100);//100  Wait 0.8 seconds
         }
         return tramaRecibida;
     }
+    
 }

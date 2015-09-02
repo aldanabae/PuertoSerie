@@ -4,12 +4,6 @@ package puertoserie;
 
 import java.util.zip.Checksum;
 
-/**
- * User: punksa
- * Date: 13-10-11
- * Time: 下午10:33
- */
-
 public class CRC implements Checksum {
     private static final int[] TABLE = {
             0x0000, 0xc0c1, 0xc181, 0x0140, 0xc301, 0x03c0, 0x0280, 0xc241,

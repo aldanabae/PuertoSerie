@@ -24,7 +24,6 @@ public class Pantalla extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         campoIdDispositivo = new javax.swing.JTextField();
-        campoNroFuncion = new javax.swing.JTextField();
         campoDireccionInicial = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -34,7 +33,8 @@ public class Pantalla extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         campoPuerto = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        campoResultados = new javax.swing.JTextArea();
+        campoNroFuncion = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,9 +62,11 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        campoResultados.setColumns(20);
+        campoResultados.setRows(5);
+        jScrollPane1.setViewportView(campoResultados);
+
+        campoNroFuncion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,12 +84,12 @@ public class Pantalla extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCantidadVariables, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoDireccionInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoNroFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoIdDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoPuerto, 0, 74, Short.MAX_VALUE)
+                            .addComponent(campoCantidadVariables, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(campoDireccionInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(campoIdDispositivo, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(campoNroFuncion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -103,8 +105,8 @@ public class Pantalla extends javax.swing.JFrame {
                             .addComponent(campoIdDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoNroFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(campoNroFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoDireccionInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,14 +133,20 @@ public class Pantalla extends javax.swing.JFrame {
         if (campoIdDispositivo != null && campoNroFuncion != null &&
             campoDireccionInicial != null && campoCantidadVariables != null){
         int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
-        int funcion = Integer.parseInt(campoNroFuncion.getText());
+        int funcion = Integer.parseInt(campoNroFuncion.getSelectedItem().toString());
         int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
         int cantidad = Integer.parseInt(campoCantidadVariables.getText());
         String puerto = campoPuerto.getSelectedItem().toString();
         
-        System.out.println(puerto);
+        System.out.println("Utilizando el puerto: "+puerto+"\n");
         
-        scan.pedirDatos(dispositivo, funcion, inicio, cantidad, puerto);
+        ArrayList datos = scan.pedirDatos(dispositivo, funcion, inicio, cantidad, puerto);
+        
+        String datosAux="";
+        for (int i = 0; i < datos.size(); i++) {
+                datosAux = datosAux+"\n "+(i+1)+" ---> "+((int)datos.get(i));
+            }
+        campoResultados.setText(datosAux);
         
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -186,8 +194,9 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JTextField campoCantidadVariables;
     private javax.swing.JTextField campoDireccionInicial;
     private javax.swing.JTextField campoIdDispositivo;
-    private javax.swing.JTextField campoNroFuncion;
+    private javax.swing.JComboBox campoNroFuncion;
     private javax.swing.JComboBox campoPuerto;
+    private javax.swing.JTextArea campoResultados;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -195,6 +204,5 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
