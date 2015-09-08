@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Pantalla extends javax.swing.JFrame {
    
-    Scan scan = new Scan();
+    ExpertoModbus experto = new ExpertoModbus();
     
     public Pantalla() {
         initComponents();
@@ -140,11 +140,11 @@ public class Pantalla extends javax.swing.JFrame {
         
         System.out.println("Utilizando el puerto: "+puerto+"\n");
         
-        ArrayList datos = scan.pedirDatos(dispositivo, funcion, inicio, cantidad, puerto);
-        
+        ArrayList datos = experto.funcionTres(dispositivo, funcion, inicio, cantidad, puerto);
+                
         String datosAux="";
         for (int i = 0; i < datos.size(); i++) {
-                datosAux = datosAux+"\n "+(i+1)+" ---> "+((int)datos.get(i));
+                datosAux = datosAux+"\n---> "+(datos.get(i).toString());
             }
         campoResultados.setText(datosAux);
         

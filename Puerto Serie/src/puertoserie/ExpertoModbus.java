@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Scan {
+public class ExpertoModbus {
     
     PuertoSerie puertoSerie = new PuertoSerie();
     CRC crc = new CRC();
     
-    public ArrayList pedirDatos(int idDispositivo, int nroFuncion, int direccionInicial,
+    public ArrayList funcionTres(int idDispositivo, int nroFuncion, int direccionInicial,
                             int cantidadVariables, String puerto){
         
         ArrayList tramaEnvia = new ArrayList();
         ArrayList tramaRecibe = new ArrayList();
+        ArrayList datosPantalla = new ArrayList();
         byte[] crcGenerado;
         
         //CONVIERTE INT RECIBIDOS DE PANTALLA A BYTE
@@ -53,12 +54,19 @@ public class Scan {
         System.out.println("CRC Low en binario: "+Integer.toBinaryString(byteCRCLow & 0xFF));
         
         // ENVIA TRAMA
-        ArrayList datosPantalla = new ArrayList();
         try {
-            
+            // CONFIGURA EL PUERTO SERIE
             puertoSerie.configurar(puerto);
-            puertoSerie.enviar(tramaEnvia);
-            tramaRecibe = puertoSerie.recibir();
+            // ENVIA
+            for (int i = 0; i < tramaEnvia.size(); i++) {
+                puertoSerie.enviar((byte)tramaEnvia.get(i));
+            }
+            // RECIBE
+            for (int i = 0; i < 100; i++) {
+                byte byteRecibido = puertoSerie.recibir();
+                int datoRecibido = byteRecibido & 0xFF;
+                tramaRecibe.add(datoRecibido);
+            }
             
             // MUESTRA TRAMA RECIBIDA ------ BORRAR
             System.out.println("\nTrama recibida: ");
@@ -70,14 +78,14 @@ public class Scan {
             // ARMA TRAMA RECIBIDA SIN CRC
             byte[] tramaRecibeSinCRC = new byte[Integer.parseInt(tramaRecibe.get(2).toString())+3];
             for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString())+3; i++) {
-                tramaRecibeSinCRC[i] = (byte)tramaRecibe.get(i);
+                tramaRecibeSinCRC[i] = (byte)((int)tramaRecibe.get(i) & 0xFF);
             }
             // GENERA CRC DE LA TRAMA RECIBIDA
             crcGenerado = crc.generarCRC(tramaRecibeSinCRC);
             byteCRCHigh = crcGenerado[0]; // CRC generado High
             byteCRCLow = crcGenerado[1]; // CRC Generado Low
-            byte byteCrcRecibidoHigh = (byte)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+3);
-            byte byteCrcRecibidoLow = (byte)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+4);       
+            byte byteCrcRecibidoHigh = (byte)((int)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+3));
+            byte byteCrcRecibidoLow = (byte)((int)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+4));       
             
             // VERIFICACION DE CRC GENERADO Y RECIBIDO ------- BORRAR
             System.out.println("COMPARACION DE CRC");
@@ -85,16 +93,16 @@ public class Scan {
             System.out.println("CRC Generado Low: "+Integer.toHexString(byteCRCLow & 0xFF));
             System.out.println("CRC Recibido High: "+Integer.toHexString(byteCrcRecibidoHigh & 0xFF));
             System.out.println("CRC Recibido Low: "+Integer.toHexString(byteCrcRecibidoLow & 0xFF));
-                        
+            System.out.println("\n");
+            
             // VERIFICA QUE EL CRC GENERADO ES IGUAL AL CRC RECIBIDO
             if(byteCRCHigh == byteCrcRecibidoHigh && byteCRCLow == byteCrcRecibidoLow){
-                // CONVIERTE BYTES A INT PARA ENVIAR A PANTALLA
+                // HIGH + LOW
                 for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString()); i++) {
                     int j=i+1;
-                    int high = (byte)tramaRecibe.get(3+i) << 8;
-                    int low = (byte)tramaRecibe.get(3+j);
+                    int high = (int)tramaRecibe.get(3+i) << 8;
+                    int low = (int)tramaRecibe.get(3+j);
                     int nro = high + low;
-                    System.out.println(" ---> "+nro);
                     datosPantalla.add(nro);
                     i++;
                 }
@@ -102,9 +110,8 @@ public class Scan {
                 System.out.println("CRC INCORRECTO");
             }
         } catch (Exception ex) {
-            Logger.getLogger(Scan.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return datosPantalla;
     }
 }
