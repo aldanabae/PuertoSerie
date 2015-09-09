@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 public class Pantalla extends javax.swing.JFrame {
    
     ExpertoModbus experto = new ExpertoModbus();
+    ArrayList datos;
+    DTOdatosPantalla dto = new DTOdatosPantalla();
+    
     
     public Pantalla() {
         initComponents();
@@ -35,6 +38,10 @@ public class Pantalla extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         campoResultados = new javax.swing.JTextArea();
         campoNroFuncion = new javax.swing.JComboBox();
+        comboVista = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        campoTrama = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,17 +63,23 @@ public class Pantalla extends javax.swing.JFrame {
         jLabel5.setText("Puerto:");
 
         campoPuerto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9" }));
-        campoPuerto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPuertoActionPerformed(evt);
-            }
-        });
 
         campoResultados.setColumns(20);
         campoResultados.setRows(5);
         jScrollPane1.setViewportView(campoResultados);
 
-        campoNroFuncion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3" }));
+        campoNroFuncion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6", "16" }));
+
+        comboVista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binario", "Hexadecimal" }));
+        comboVista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboVistaActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Vista:");
+
+        jLabel7.setText("Trama Recibida:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,22 +89,28 @@ public class Pantalla extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoPuerto, 0, 74, Short.MAX_VALUE)
-                            .addComponent(campoCantidadVariables, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                            .addComponent(campoDireccionInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                            .addComponent(campoIdDispositivo, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                            .addComponent(campoNroFuncion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboVista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campoPuerto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campoCantidadVariables)
+                                    .addComponent(campoDireccionInicial)
+                                    .addComponent(campoIdDispositivo)
+                                    .addComponent(campoNroFuncion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoTrama))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,10 +137,18 @@ public class Pantalla extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(campoPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campoPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboVista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)))
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoTrama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -132,28 +159,38 @@ public class Pantalla extends javax.swing.JFrame {
         
         if (campoIdDispositivo != null && campoNroFuncion != null &&
             campoDireccionInicial != null && campoCantidadVariables != null){
-        int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
-        int funcion = Integer.parseInt(campoNroFuncion.getSelectedItem().toString());
-        int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
-        int cantidad = Integer.parseInt(campoCantidadVariables.getText());
-        String puerto = campoPuerto.getSelectedItem().toString();
-        
-        System.out.println("Utilizando el puerto: "+puerto+"\n");
-        
-        ArrayList datos = experto.funcionTres(dispositivo, funcion, inicio, cantidad, puerto);
-                
-        String datosAux="";
-        for (int i = 0; i < datos.size(); i++) {
-                datosAux = datosAux+"\n---> "+(datos.get(i).toString());
-            }
-        campoResultados.setText(datosAux);
-        
+            
+            int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
+            int funcion = Integer.parseInt(campoNroFuncion.getSelectedItem().toString());
+            int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
+            int cantidad = Integer.parseInt(campoCantidadVariables.getText());
+            String puerto = campoPuerto.getSelectedItem().toString();
+
+            System.out.println("Utilizando el puerto: "+puerto+"\n");
+             
+            dto = experto.funcionTres(dispositivo, funcion, inicio, cantidad, puerto);
+
+            datos = dto.getDatos();
+            
+            campoTrama.setText(dto.getTrama());
+            
+            if(comboVista.getSelectedIndex() == 0)
+                mostrarDec(datos);
+            else if (comboVista.getSelectedIndex() == 1)
+                mostrarBin(datos);
+            else if (comboVista.getSelectedIndex() == 2)
+                mostrarHex(datos);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void campoPuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPuertoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPuertoActionPerformed
+    private void comboVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVistaActionPerformed
+        if(comboVista.getSelectedIndex() == 0)
+            mostrarDec(datos);
+        else if (comboVista.getSelectedIndex() == 1)
+            mostrarBin(datos);
+        else if (comboVista.getSelectedIndex() == 2)
+            mostrarHex(datos);
+    }//GEN-LAST:event_comboVistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,12 +234,42 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JComboBox campoNroFuncion;
     private javax.swing.JComboBox campoPuerto;
     private javax.swing.JTextArea campoResultados;
+    private javax.swing.JTextField campoTrama;
+    private javax.swing.JComboBox comboVista;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+public void mostrarBin(ArrayList datos){
+    String datosAux="";
+    for (int i = 0; i < datos.size(); i++) {
+        datosAux = datosAux+"\n"+(i+1)+" ---> "+(Integer.toBinaryString((int)datos.get(i)));
+    }
+    campoResultados.setText(datosAux);
 }
+
+public void mostrarHex(ArrayList datos){
+    String datosAux="";
+    for (int i = 0; i < datos.size(); i++) {
+        datosAux = datosAux+"\n"+(i+1)+" ---> "+(Integer.toHexString((int)datos.get(i)));
+    }
+    campoResultados.setText(datosAux);
+}
+
+public void mostrarDec(ArrayList datos){
+    String datosAux="";
+    for (int i = 0; i < datos.size(); i++) {
+        datosAux = datosAux+"\n"+(i+1)+" ---> "+(datos.get(i).toString());
+    }
+    campoResultados.setText(datosAux);
+}
+}
+
+
