@@ -10,7 +10,7 @@ public class PuertoSerie {
     
     Com com;
     
-    public void configurar(String puerto) throws Exception{   
+    public void conectar(String puerto) throws Exception{   
         SerialPort puertoSerie = new SerialPort();
         if(puertoSerie.getStateSerialPortC(puerto).equals("free")){
             Parameters parameters;
@@ -31,5 +31,9 @@ public class PuertoSerie {
         int  datoRecibido = com.receiveSingleCharAsInteger();
         byte byteRecibido = (byte)(datoRecibido);
         return byteRecibido;
+    }
+    
+    public void desconectar() throws Exception{
+        com.close();
     }
 }

@@ -9,7 +9,7 @@ public class Pantalla extends javax.swing.JFrame {
    
     ExpertoModbus experto = new ExpertoModbus();
     ArrayList datos;
-    DTOdatosPantalla dto = new DTOdatosPantalla();
+    DTOPantalla dto = new DTOPantalla();
     
     
     public Pantalla() {
@@ -37,7 +37,7 @@ public class Pantalla extends javax.swing.JFrame {
         campoPuerto = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         campoResultados = new javax.swing.JTextArea();
-        campoNroFuncion = new javax.swing.JComboBox();
+        comboNroFuncion = new javax.swing.JComboBox();
         comboVista = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         campoTrama = new javax.swing.JTextField();
@@ -51,7 +51,7 @@ public class Pantalla extends javax.swing.JFrame {
 
         jLabel3.setText("Dirección Inicial:");
 
-        jLabel4.setText("Cantidad de Variables:");
+        jLabel4.setText("Variables:");
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +68,12 @@ public class Pantalla extends javax.swing.JFrame {
         campoResultados.setRows(5);
         jScrollPane1.setViewportView(campoResultados);
 
-        campoNroFuncion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6", "16" }));
+        comboNroFuncion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6", "16" }));
+        comboNroFuncion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboNroFuncionActionPerformed(evt);
+            }
+        });
 
         comboVista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Decimal", "Binario", "Hexadecimal" }));
         comboVista.addActionListener(new java.awt.event.ActionListener() {
@@ -107,8 +112,8 @@ public class Pantalla extends javax.swing.JFrame {
                                     .addComponent(campoCantidadVariables)
                                     .addComponent(campoDireccionInicial)
                                     .addComponent(campoIdDispositivo)
-                                    .addComponent(campoNroFuncion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                                    .addComponent(comboNroFuncion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(campoTrama))))
                 .addContainerGap())
@@ -125,7 +130,7 @@ public class Pantalla extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(campoNroFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboNroFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoDireccionInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,18 +162,22 @@ public class Pantalla extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        if (campoIdDispositivo != null && campoNroFuncion != null &&
+        if (campoIdDispositivo != null && comboNroFuncion != null &&
             campoDireccionInicial != null && campoCantidadVariables != null){
             
-            int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
-            int funcion = Integer.parseInt(campoNroFuncion.getSelectedItem().toString());
-            int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
-            int cantidad = Integer.parseInt(campoCantidadVariables.getText());
-            String puerto = campoPuerto.getSelectedItem().toString();
-
-            System.out.println("Utilizando el puerto: "+puerto+"\n");
-             
-            dto = experto.funcionTres(dispositivo, funcion, inicio, cantidad, puerto);
+            dto.setIdDispositivo(Integer.parseInt(campoIdDispositivo.getText()));
+            dto.setNroFuncion(Integer.parseInt(comboNroFuncion.getSelectedItem().toString()));
+            dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
+            dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+            dto.setPuerto(campoPuerto.getSelectedItem().toString());
+            
+//            int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
+//            int funcion = Integer.parseInt(comboNroFuncion.getSelectedItem().toString());
+//            int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
+//            int cantidad = Integer.parseInt(campoCantidadVariables.getText());
+//            String puerto = campoPuerto.getSelectedItem().toString();
+ 
+            this.dto = experto.funcionTres(dto);
 
             datos = dto.getDatos();
             
@@ -184,13 +193,28 @@ public class Pantalla extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVistaActionPerformed
-        if(comboVista.getSelectedIndex() == 0)
-            mostrarDec(datos);
-        else if (comboVista.getSelectedIndex() == 1)
-            mostrarBin(datos);
-        else if (comboVista.getSelectedIndex() == 2)
-            mostrarHex(datos);
+        if(datos != null){
+            if(comboVista.getSelectedIndex() == 0)
+                mostrarDec(datos);
+            else if (comboVista.getSelectedIndex() == 1)
+                mostrarBin(datos);
+            else if (comboVista.getSelectedIndex() == 2)
+                mostrarHex(datos);
+        }
     }//GEN-LAST:event_comboVistaActionPerformed
+
+    private void comboNroFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNroFuncionActionPerformed
+        if(comboNroFuncion.getSelectedItem().toString().equals("3")){
+            jLabel3.setText("Dirección Inicial:");
+            jLabel4.setText("Variables:");
+        }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
+            jLabel3.setText("Dirección:");
+            jLabel4.setText("Valor:");
+        }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
+            jLabel3.setText("Dirección Inicial:");
+            jLabel4.setText("Valores:"); 
+        }
+    }//GEN-LAST:event_comboNroFuncionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,10 +255,10 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JTextField campoCantidadVariables;
     private javax.swing.JTextField campoDireccionInicial;
     private javax.swing.JTextField campoIdDispositivo;
-    private javax.swing.JComboBox campoNroFuncion;
     private javax.swing.JComboBox campoPuerto;
     private javax.swing.JTextArea campoResultados;
     private javax.swing.JTextField campoTrama;
+    private javax.swing.JComboBox comboNroFuncion;
     private javax.swing.JComboBox comboVista;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

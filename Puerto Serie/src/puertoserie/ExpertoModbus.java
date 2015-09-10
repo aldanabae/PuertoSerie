@@ -7,41 +7,44 @@ import java.util.logging.Logger;
 
 public class ExpertoModbus {
     
-    PuertoSerie puertoSerie = new PuertoSerie();
-    CRC crc = new CRC();
+    ArrayList tramaEnvia;
     byte[] tramaEnviaSinCRC;
+    CRC crc;
+    byte[] crcGenerado;
+    PuertoSerie puertoSerie;
+    ArrayList tramaRecibe;
+    ArrayList datosPantalla;
+    DTOPantalla dto;
+    int cantidadDeIntentosDeConexion = 3;
     
-    
-    public DTOdatosPantalla funcionTres(int idDispositivo, int nroFuncion, int direccionInicial,
-                            int cantidadVariables, String puerto){
+    public DTOPantalla funcionTres(DTOPantalla dto){
         
-        ArrayList tramaEnvia = new ArrayList();
-        ArrayList tramaRecibe = new ArrayList();
-        ArrayList datosPantalla = new ArrayList();
-        byte[] crcGenerado;
-        DTOdatosPantalla dto = new DTOdatosPantalla();
+        this.dto = new DTOPantalla();
+        this.dto = dto;
         
+        tramaEnvia = new ArrayList();
         //CONVIERTE INT RECIBIDOS DE PANTALLA A BYTE
-        byte byteIdDispositivo = (byte) (idDispositivo & 0xFF);
+        byte byteIdDispositivo = (byte) (dto.getIdDispositivo() & 0xFF);
         tramaEnvia.add(byteIdDispositivo);
         
-        byte byteNroFuncion = (byte)(nroFuncion & 0xFF);
+        byte byteNroFuncion = (byte)(dto.getNroFuncion() & 0xFF);
         tramaEnvia.add(byteNroFuncion);
         
-        byte byteDireccionInicialHigh = (byte) ((direccionInicial >> 8) & 0xFF);
+        byte byteDireccionInicialHigh = (byte) ((dto.getDireccionInicial() >> 8) & 0xFF);
         tramaEnvia.add(byteDireccionInicialHigh);
-        byte byteDireccionInicialLow = (byte) (direccionInicial & 0xFF);
+        byte byteDireccionInicialLow = (byte) (dto.getDireccionInicial() & 0xFF);
         tramaEnvia.add(byteDireccionInicialLow);
         
-        byte byteCantidadHigh = (byte) ((cantidadVariables >> 8) & 0xFF);
+        byte byteCantidadHigh = (byte) ((dto.getCantidadVariables() >> 8) & 0xFF);
         tramaEnvia.add(byteCantidadHigh);
-        byte byteCantidadLow = (byte) (cantidadVariables & 0xFF);
+        byte byteCantidadLow = (byte) (dto.getCantidadVariables() & 0xFF);
         tramaEnvia.add(byteCantidadLow);
         
         // ARMA TRAMA SIN CRC
         tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
         
         // GENERA CRC
+        crc = new CRC();
         crcGenerado = crc.generarCRC(tramaEnviaSinCRC);
         byte byteCRCHigh = crcGenerado[0];
         tramaEnvia.add(byteCRCHigh);
@@ -50,31 +53,50 @@ public class ExpertoModbus {
         
         // ENVIA TRAMA
         try {
-            // CONFIGURA EL PUERTO SERIE
-            puertoSerie.configurar(puerto);
+            puertoSerie = new PuertoSerie();
             
-            // ENVIA
-            for (int i = 0; i < tramaEnvia.size(); i++) {
-                puertoSerie.enviar((byte)tramaEnvia.get(i));
+            // CONECTA CON EL PUERTO SERIE
+            puertoSerie.conectar(dto.getPuerto());
+            System.out.println("Utilizando el puerto: \n"+dto.getPuerto()+"\n");
+            
+            // WHILE CANTIDAD DE INTENTOS DE CONEXION
+            int intento = 1;
+            while(intento <= cantidadDeIntentosDeConexion){
+                System.out.println("\nIntento de conexión "+intento+"...");
+                // ENVIA
+                for (int i = 0; i < tramaEnvia.size(); i++) {
+                    puertoSerie.enviar((byte)tramaEnvia.get(i));
+                }
+
+                // RECIBE
+                tramaRecibe = new ArrayList();
+                for (int i = 0; i < 100; i++) {
+                    byte byteRecibido = puertoSerie.recibir();
+                    int datoRecibido = byteRecibido & 0xFF;
+                    tramaRecibe.add(datoRecibido);
+                }
+                if(tramaRecibe.get(0).toString().equals("0")){
+                    intento = intento + 1;
+                    System.out.println("FALLO");
+                }else{
+                    intento = intento + 3;
+                    System.out.println("OK");
+                }    
             }
             
-            // RECIBE
-            for (int i = 0; i < 100; i++) {
-                byte byteRecibido = puertoSerie.recibir();
-                int datoRecibido = byteRecibido & 0xFF;
-                tramaRecibe.add(datoRecibido);
-            }
+            // CIERRA CONEXION
+            puertoSerie.desconectar();
             
             // VERIFICA CODIGO DE ERROR
-            if((int)tramaRecibe.get(1) != 0x83){
-                // MUESTRA TRAMA RECIBIDA ------ BORRAR
+            dto = new DTOPantalla();
+            if((int)tramaRecibe.get(1) != 0x83){ // VERIFICA QUE EL 2DO BYTE NO SEA 83(COD.ERROR)
+                // MUESTRA TRAMA RECIBIDA
                 System.out.println("\nTrama recibida: ");
                 String aux = "";
                 for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString())+5; i++) {
                     System.out.printf("%H ", tramaRecibe.get(i));
-                     aux = aux+Integer.toHexString((int)tramaRecibe.get(i))+" ";
+                    aux = aux+Integer.toHexString((int)tramaRecibe.get(i))+" ";
                 }
-                dto.setTrama(aux);
                 System.out.println("\n");
                 
                 // ARMA TRAMA RECIBIDA SIN CRC
@@ -90,17 +112,18 @@ public class ExpertoModbus {
                 byte byteCrcRecibidoHigh = (byte)((int)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+3));
                 byte byteCrcRecibidoLow = (byte)((int)tramaRecibe.get(Integer.parseInt(tramaRecibe.get(2).toString())+4));       
 
-                // VERIFICACION DE CRC GENERADO Y RECIBIDO ------- BORRAR
-                System.out.println("COMPARACION DE CRC");
+                // MUESTRA CRC GENERADO Y RECIBIDO ------- BORRAR
+                System.out.println("Comparación de CRC...");
                 System.out.println("CRC Generado High: "+Integer.toHexString(byteCRCHigh & 0xFF));
                 System.out.println("CRC Generado Low: "+Integer.toHexString(byteCRCLow & 0xFF));
                 System.out.println("CRC Recibido High: "+Integer.toHexString(byteCrcRecibidoHigh & 0xFF));
                 System.out.println("CRC Recibido Low: "+Integer.toHexString(byteCrcRecibidoLow & 0xFF));
-                System.out.println("\n");
-
+                
                 // VERIFICA QUE EL CRC GENERADO ES IGUAL AL CRC RECIBIDO
                 if(byteCRCHigh == byteCrcRecibidoHigh && byteCRCLow == byteCrcRecibidoLow){
+                    System.out.println("OK");
                     // HIGH + LOW
+                    datosPantalla = new ArrayList();
                     for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString()); i++) {
                         int j=i+1;
                         int high = (int)tramaRecibe.get(3+i) << 8;
@@ -110,8 +133,10 @@ public class ExpertoModbus {
                         i++;
                     }
                     dto.setDatos(datosPantalla);
+                    dto.setTrama(aux);
                 }else{
-                    System.out.println("CRC INCORRECTO");
+                    System.out.println("ERROR");
+                    dto.setTrama("CRC Incorrecto");
                 }
             }else{
                 datosPantalla.add("");
@@ -122,4 +147,8 @@ public class ExpertoModbus {
         }
         return dto;
     }
+    
+    
+
 }
+

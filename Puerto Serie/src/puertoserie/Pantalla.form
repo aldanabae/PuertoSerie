@@ -46,9 +46,9 @@
                                   <Component id="campoCantidadVariables" max="32767" attributes="0"/>
                                   <Component id="campoDireccionInicial" alignment="0" max="32767" attributes="0"/>
                                   <Component id="campoIdDispositivo" max="32767" attributes="0"/>
-                                  <Component id="campoNroFuncion" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="comboNroFuncion" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="58" max="32767" attributes="0"/>
+                              <EmptySpace pref="89" max="32767" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
                           <Component id="campoTrama" max="32767" attributes="0"/>
@@ -72,7 +72,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoNroFuncion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboNroFuncion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -133,7 +133,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidad de Variables:"/>
+        <Property name="text" type="java.lang.String" value="Variables:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -181,7 +181,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JComboBox" name="campoNroFuncion">
+    <Component class="javax.swing.JComboBox" name="comboNroFuncion">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -191,6 +191,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboNroFuncionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboVista">
       <Properties>
