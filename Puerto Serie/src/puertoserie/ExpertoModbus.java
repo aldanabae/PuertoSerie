@@ -22,10 +22,11 @@ public class ExpertoModbus {
         this.dto = new DTOPantalla();
         this.dto = dto;
              
-        int contador = 0;
+        int variablesEnviadas = 0;
         int variablesRestantes=dto.getCantidadVariables();
-        while(variablesRestantes >= 0){
-            variablesRestantes = variablesRestantes - 127;
+        while(variablesRestantes > 0){
+            
+            
                 tramaEnvia = new ArrayList();
                 //CONVIERTE INT RECIBIDOS DE PANTALLA A BYTE
                 byte byteIdDispositivo = (byte) (dto.getIdDispositivo() & 0xFF);
@@ -34,35 +35,32 @@ public class ExpertoModbus {
                 byte byteNroFuncion = (byte)(dto.getNroFuncion() & 0xFF);
                 tramaEnvia.add(byteNroFuncion);
                 
-            if(false){    
-                byte byteDireccionInicialHigh = (byte) ((dto.getDireccionInicial() >> 8) & 0xFF);
-                tramaEnvia.add(byteDireccionInicialHigh);
-                byte byteDireccionInicialLow = (byte) (dto.getDireccionInicial() & 0xFF);
-                tramaEnvia.add(byteDireccionInicialLow);
-
-                byte byteCantidadHigh = (byte) (((dto.getCantidadVariables()-variablesRestantes) >> 8) & 0xFF);
-                tramaEnvia.add(byteCantidadHigh);
-                byte byteCantidadLow = (byte) ((dto.getCantidadVariables()-variablesRestantes) & 0xFF);
-                tramaEnvia.add(byteCantidadLow);
-                
-                // ARMA TRAMA SIN CRC
-                tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
             
-            }
-            else{
-                byte byteDireccionInicialHigh = (byte) (((dto.getDireccionInicial()+contador) >> 8) & 0xFF);
+                byte byteDireccionInicialHigh = (byte) (((dto.getDireccionInicial()+variablesEnviadas) >> 8) & 0xFF);
                 tramaEnvia.add(byteDireccionInicialHigh);
-                byte byteDireccionInicialLow = (byte) ((dto.getDireccionInicial()+contador) & 0xFF);
+                byte byteDireccionInicialLow = (byte) ((dto.getDireccionInicial()+variablesEnviadas) & 0xFF);
                 tramaEnvia.add(byteDireccionInicialLow);
-
-                byte byteCantidadHigh = (byte) (((dto.getCantidadVariables()-variablesRestantes) >> 8) & 0xFF);
-                tramaEnvia.add(byteCantidadHigh);
-                byte byteCantidadLow = (byte) ((dto.getCantidadVariables()-variablesRestantes) & 0xFF);
-                tramaEnvia.add(byteCantidadLow);
+            
+                if(variablesRestantes > 127){
+                    byte byteCantidadHigh = (byte) ((127 >> 8) & 0xFF);
+                    tramaEnvia.add(byteCantidadHigh);
+                    byte byteCantidadLow = (byte) (127 & 0xFF);
+                    tramaEnvia.add(byteCantidadLow);
+                    System.out.println(" entro al ifff");
+                    // ARMA TRAMA SIN CRC
+                    tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
+                    variablesRestantes = variablesRestantes - 127;
+                } else{
+                    byte byteCantidadHigh = (byte) ((variablesRestantes >> 8) & 0xFF);
+                    tramaEnvia.add(byteCantidadHigh);
+                    byte byteCantidadLow = (byte) (variablesRestantes & 0xFF);
+                    tramaEnvia.add(byteCantidadLow);
+                    
+                    // ARMA TRAMA SIN CRC
+                    tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
+                }
                 
-                // ARMA TRAMA SIN CRC
-                tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
-            }
+            
                 
                 // GENERA CRC
                 crc = new CRC();
@@ -167,10 +165,10 @@ public class ExpertoModbus {
                     Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
-        contador = contador + 128;
+        
         return dto;
-            
         }
+        
         return null;
     }
     
