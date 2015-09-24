@@ -19,37 +19,33 @@ public class ExpertoModbus {
     
     public DTOPantalla funcionTres(DTOPantalla dto){
         
-        this.dto = new DTOPantalla();
         this.dto = dto;
-             
+        datosPantalla = new ArrayList();
+        
         int variablesEnviadas = 0;
         int variablesRestantes=dto.getCantidadVariables();
         while(variablesRestantes > 0){
             
-            
                 tramaEnvia = new ArrayList();
                 //CONVIERTE INT RECIBIDOS DE PANTALLA A BYTE
-                byte byteIdDispositivo = (byte) (dto.getIdDispositivo() & 0xFF);
+                byte byteIdDispositivo = (byte) (this.dto.getIdDispositivo() & 0xFF);
                 tramaEnvia.add(byteIdDispositivo);
 
-                byte byteNroFuncion = (byte)(dto.getNroFuncion() & 0xFF);
+                byte byteNroFuncion = (byte)(this.dto.getNroFuncion() & 0xFF);
                 tramaEnvia.add(byteNroFuncion);
-                
             
-                byte byteDireccionInicialHigh = (byte) (((dto.getDireccionInicial()+variablesEnviadas) >> 8) & 0xFF);
+                byte byteDireccionInicialHigh = (byte) (((this.dto.getDireccionInicial()+variablesEnviadas) >> 8) & 0xFF);
                 tramaEnvia.add(byteDireccionInicialHigh);
-                byte byteDireccionInicialLow = (byte) ((dto.getDireccionInicial()+variablesEnviadas) & 0xFF);
+                byte byteDireccionInicialLow = (byte) ((this.dto.getDireccionInicial()+variablesEnviadas) & 0xFF);
                 tramaEnvia.add(byteDireccionInicialLow);
             
-                if(variablesRestantes > 127){
-                    byte byteCantidadHigh = (byte) ((127 >> 8) & 0xFF);
+                if(variablesRestantes > 125){
+                    byte byteCantidadHigh = (byte) ((125 >> 8) & 0xFF);
                     tramaEnvia.add(byteCantidadHigh);
-                    byte byteCantidadLow = (byte) (127 & 0xFF);
+                    byte byteCantidadLow = (byte) (125 & 0xFF);
                     tramaEnvia.add(byteCantidadLow);
-                    System.out.println(" entro al ifff");
                     // ARMA TRAMA SIN CRC
                     tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
-                    variablesRestantes = variablesRestantes - 127;
                 } else{
                     byte byteCantidadHigh = (byte) ((variablesRestantes >> 8) & 0xFF);
                     tramaEnvia.add(byteCantidadHigh);
@@ -59,9 +55,7 @@ public class ExpertoModbus {
                     // ARMA TRAMA SIN CRC
                     tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
                 }
-                
-            
-                
+
                 // GENERA CRC
                 crc = new CRC();
                 crcGenerado = crc.generarCRC(tramaEnviaSinCRC);
@@ -73,15 +67,15 @@ public class ExpertoModbus {
                 // ENVIA TRAMA
                 try {
                     puertoSerie = new PuertoSerie();
-
+                    
                     // CONECTA CON EL PUERTO SERIE
-                    puertoSerie.conectar(dto.getPuerto());
-                    System.out.println("Utilizando el puerto: \n"+dto.getPuerto()+"\n");
+                    puertoSerie.conectar(this.dto.getPuerto());
+                    System.out.println("Utilizando el puerto: \n"+this.dto.getPuerto()+"\n");
 
                     // WHILE CANTIDAD DE INTENTOS DE CONEXION
                     int intento = 1;
                     while(intento <= cantidadDeIntentosDeConexion){
-                        System.out.println("\nIntento de conexión "+intento+"...");
+                            System.out.println("\nIntento de conexión "+intento+"...");
                             // ENVIA
                                 for (int i = 0; i < tramaEnvia.size(); i++) {
                                     puertoSerie.enviar((byte)tramaEnvia.get(i));
@@ -142,7 +136,7 @@ public class ExpertoModbus {
                         if(byteCRCHigh == byteCrcRecibidoHigh && byteCRCLow == byteCrcRecibidoLow){
                             System.out.println("OK");
                             // HIGH + LOW
-                            datosPantalla = new ArrayList();
+                            
                             for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString()); i++) {
                                 int j=i+1;
                                 int high = (int)tramaRecibe.get(3+i) << 8;
@@ -164,12 +158,10 @@ public class ExpertoModbus {
                 } catch (Exception ex) {
                     Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        
-        
-        return dto;
+        variablesEnviadas = variablesEnviadas + 125;
+        variablesRestantes = variablesRestantes - 125;
         }
-        
-        return null;
+        return dto;
     }
     
     public DTOPantalla funcionSeis(DTOPantalla dto){
