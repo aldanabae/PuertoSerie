@@ -165,25 +165,30 @@ public class Pantalla extends javax.swing.JFrame {
         if (campoIdDispositivo != null && comboNroFuncion != null &&
             campoDireccionInicial != null && campoCantidadVariables != null){
             
-            dto.setIdDispositivo(Integer.parseInt(campoIdDispositivo.getText()));
-            dto.setNroFuncion(Integer.parseInt(comboNroFuncion.getSelectedItem().toString()));
-            dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
-            dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
-            dto.setPuerto(campoPuerto.getSelectedItem().toString());
             
-//            int dispositivo = Integer.parseInt(campoIdDispositivo.getText());
-//            int funcion = Integer.parseInt(comboNroFuncion.getSelectedItem().toString());
-//            int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
-//            int cantidad = Integer.parseInt(campoCantidadVariables.getText());
-//            String puerto = campoPuerto.getSelectedItem().toString();
+            
             if(comboNroFuncion.getSelectedItem().toString().equals("3")){
+                dto.setIdDispositivo(Integer.parseInt(campoIdDispositivo.getText()));
+                dto.setNroFuncion(Integer.parseInt(comboNroFuncion.getSelectedItem().toString()));
+                dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
+                dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                dto.setPuerto(campoPuerto.getSelectedItem().toString());
                 this.dto = experto.funcionTres(dto);
             }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
+                dto.setIdDispositivo(Integer.parseInt(campoIdDispositivo.getText()));
+                dto.setNroFuncion(Integer.parseInt(comboNroFuncion.getSelectedItem().toString()));
+                dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
+                dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                dto.setPuerto(campoPuerto.getSelectedItem().toString());
                 this.dto = experto.funcionSeis(dto);
             }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
-                 
+                dto.setIdDispositivo(Integer.parseInt(campoIdDispositivo.getText()));
+                dto.setNroFuncion(Integer.parseInt(comboNroFuncion.getSelectedItem().toString()));
+                dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
+                dto.setVariablesDelimitadas(campoCantidadVariables.getText());
+                dto.setPuerto(campoPuerto.getSelectedItem().toString());
+                this.dto = experto.funcionDieciseis(dto);
             }
-            
 
             datos = dto.getDatos();
             

@@ -9,6 +9,7 @@ public class DTOPantalla {
     int nroFuncion;
     int direccionInicial;
     int cantidadVariables;
+    String variablesDelimitadas;
     String puerto;
     String trama;
     ArrayList datos = new ArrayList();
@@ -68,4 +69,13 @@ public class DTOPantalla {
     public void setPuerto(String puerto) {
         this.puerto = puerto;
     }
+
+    public String getVariablesDelimitadas() {
+        return variablesDelimitadas;
+    }
+
+    public void setVariablesDelimitadas(String variablesDelimitadas) {
+        this.variablesDelimitadas = variablesDelimitadas;
+    }
+        
 }
