@@ -178,18 +178,18 @@ public class ExpertoModbus {
                 byte byteNroFuncion = (byte)(this.dto.getNroFuncion() & 0xFF);
                 tramaEnvia.add(byteNroFuncion);
             
-                byte byteDireccionInicialHigh = (byte) (((this.dto.getDireccionInicial()) >> 8) & 0xFF);
-                tramaEnvia.add(byteDireccionInicialHigh);
-                byte byteDireccionInicialLow = (byte) ((this.dto.getDireccionInicial()) & 0xFF);
-                tramaEnvia.add(byteDireccionInicialLow);
+                byte byteDireccionHigh = (byte) (((this.dto.getDireccionInicial()) >> 8) & 0xFF);
+                tramaEnvia.add(byteDireccionHigh);
+                byte byteDireccionLow = (byte) ((this.dto.getDireccionInicial()) & 0xFF);
+                tramaEnvia.add(byteDireccionLow);
             
-                byte byteCantidadHigh = (byte) ((dto.getCantidadVariables() >> 8) & 0xFF);
-                tramaEnvia.add(byteCantidadHigh);
-                byte byteCantidadLow = (byte) (dto.getCantidadVariables() & 0xFF);
-                tramaEnvia.add(byteCantidadLow);
+                byte byteValorHigh = (byte) ((dto.getCantidadVariables() >> 8) & 0xFF);
+                tramaEnvia.add(byteValorHigh);
+                byte byteValorLow = (byte) (dto.getCantidadVariables() & 0xFF);
+                tramaEnvia.add(byteValorLow);
                     
                 // ARMA TRAMA SIN CRC
-                tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow, byteCantidadHigh, byteCantidadLow};
+                tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionHigh, byteDireccionLow, byteValorHigh, byteValorLow};
                 
                 // GENERA CRC
                 crc = new CRC();
@@ -335,16 +335,26 @@ public class ExpertoModbus {
                 st = new StringTokenizer(this.dto.getVariablesDelimitadas(),",");
                 while (st.hasMoreTokens()){
                     int valor = Integer.parseInt(st.nextToken());
-                    System.out.println (valor);
-                    byte byteValorHigh = (byte) (((cantidadvariables) >> 8) & 0xFF);
+                    System.out.println("valorrrrrr: "+valor);
+                    byte byteValorHigh = (byte) (((valor) >> 8) & 0xFF);
                     tramaEnvia.add(byteValorHigh);
-                    byte byteValorLow = (byte) (cantidadvariables & 0xFF);
+                    byte byteValorLow = (byte) (valor & 0xFF);
                     tramaEnvia.add(byteValorLow);
                 }
-
    
                 // ARMA TRAMA SIN CRC
-                tramaEnviaSinCRC = new byte[] { byteIdDispositivo, byteNroFuncion, byteDireccionInicialHigh, byteDireccionInicialLow};
+                tramaEnviaSinCRC = new byte[7 + byteCantidadBytesEnvia];
+                tramaEnviaSinCRC[0] = byteIdDispositivo;
+                tramaEnviaSinCRC[1] = byteNroFuncion;
+                tramaEnviaSinCRC[2] = byteDireccionInicialHigh;
+                tramaEnviaSinCRC[3] = byteDireccionInicialLow;
+                tramaEnviaSinCRC[4] = byteCantidadvariablesHigh;
+                tramaEnviaSinCRC[5] = byteCantidadvariablesLow;
+                tramaEnviaSinCRC[6] = byteCantidadBytesEnvia;
+                
+                for (int i = 7; i < tramaEnvia.size(); i++) {
+                    tramaEnviaSinCRC[i] = (byte) tramaEnvia.get(i);
+                }
                 
                 // GENERA CRC
                 crc = new CRC();
@@ -392,7 +402,7 @@ public class ExpertoModbus {
 
                     // VERIFICA CODIGO DE ERROR
                     dto = new DTOPantalla();
-                    if((int)tramaRecibe.get(1) != 0x86){ // VERIFICA QUE EL 2DO BYTE NO SEA 86(COD.ERROR)
+                    if((int)tramaRecibe.get(1) != 0x90){ // VERIFICA QUE EL 2DO BYTE NO SEA 90(COD.ERROR)
                         // MUESTRA TRAMA RECIBIDA
                         System.out.println("\nTrama recibida: ");
                         String aux = "";
@@ -443,12 +453,12 @@ public class ExpertoModbus {
                         }
                     }else{
                         datosPantalla.add("");
-                        dto.setTrama("ERROR 0x86");
+                        dto.setTrama("ERROR 0x90");
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        return null;
+        return dto;
     }
 
 }   
