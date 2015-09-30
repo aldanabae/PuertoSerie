@@ -176,8 +176,14 @@ public class Pantalla extends javax.swing.JFrame {
 //            int inicio = Integer.parseInt(campoDireccionInicial.getText())-1;
 //            int cantidad = Integer.parseInt(campoCantidadVariables.getText());
 //            String puerto = campoPuerto.getSelectedItem().toString();
- 
-            this.dto = experto.funcionTres(dto);
+            if(comboNroFuncion.getSelectedItem().toString().equals("3")){
+                this.dto = experto.funcionTres(dto);
+            }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
+                this.dto = experto.funcionSeis(dto);
+            }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
+                 
+            }
+            
 
             datos = dto.getDatos();
             
