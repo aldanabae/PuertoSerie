@@ -2,12 +2,11 @@
 package puertoserie;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Pantalla extends javax.swing.JFrame {
    
     ExpertoModbus experto = new ExpertoModbus();
+    ExpertoTcp expertoTCP = new ExpertoTcp();
     ArrayList datos;
     DTOPantalla dto = new DTOPantalla();
     
@@ -62,7 +61,7 @@ public class Pantalla extends javax.swing.JFrame {
 
         jLabel5.setText("Puerto:");
 
-        campoPuerto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9" }));
+        campoPuerto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COM1", "COM2", "COM3", "COM4", "TCP/IP" }));
 
         campoResultados.setColumns(20);
         campoResultados.setRows(5);
@@ -170,17 +169,26 @@ public class Pantalla extends javax.swing.JFrame {
             dto.setDireccionInicial(Integer.parseInt(campoDireccionInicial.getText())-1);
             dto.setPuerto(campoPuerto.getSelectedItem().toString());
             
-            if(comboNroFuncion.getSelectedItem().toString().equals("3")){
-                dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
-                this.dto = experto.funcionTres(dto);
-            }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
-                dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
-                this.dto = experto.funcionSeis(dto);
-            }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
-                dto.setVariablesDelimitadas(campoCantidadVariables.getText());
-                this.dto = experto.funcionDieciseis(dto);
+            if(campoPuerto.getSelectedItem().toString() == "TCP/IP"){
+                if(comboNroFuncion.getSelectedItem().toString().equals("3")){
+                    dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                    this.dto = expertoTCP.funcionTres(dto);
+                }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
+                    dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                    this.dto = expertoTCP.funcionSeis(dto);
+                }
+            } else {
+                if(comboNroFuncion.getSelectedItem().toString().equals("3")){
+                    dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                    this.dto = experto.funcionTres(dto);
+                }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
+                    dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
+                    this.dto = experto.funcionSeis(dto);
+                }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
+                    dto.setVariablesDelimitadas(campoCantidadVariables.getText());
+                    this.dto = experto.funcionDieciseis(dto);
+                }
             }
-
             datos = this.dto.getDatos();
             
             campoTrama.setText(dto.getTrama());
