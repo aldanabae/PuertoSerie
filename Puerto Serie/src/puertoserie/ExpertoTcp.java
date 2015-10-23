@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -205,12 +206,8 @@ public class ExpertoTcp {
         
         this.dto = dto;
         datosPantalla = new ArrayList();
-
-        int valor=dto.getCantidadVariables();
-
             
                 tramaEnvia = new ArrayList();
-                // ARMA LA TRAMA CON LOS DATOS RECIBIDOS DE LA PANTALLA
                 
                 // TRANSACCION
                 byte byteNroTransaccionLow = (byte) (nroTransaccion & 0xFF);
@@ -225,52 +222,85 @@ public class ExpertoTcp {
                 byte byteProtocoloLow = (byte) (0 & 0xFF);
                 tramaEnvia.add(byteProtocoloLow);
                 
+                // SEPARA LOS VALORES DELIMITADOS POR ","
+                StringTokenizer st = new StringTokenizer(this.dto.getVariablesDelimitadas(),",");
+                int cantidadvariables = 0;    
+                while (st.hasMoreTokens()){
+                    st.nextToken();
+                    ++cantidadvariables;
+                }
+                
                 // CANTIDAD BYTES
-                byte byteCantidadBytesHigh = (byte) ((6 >> 8) & 0xFF);
+                byte byteCantidadBytesHigh = (byte) ((((cantidadvariables * 2)+7) >> 8) & 0xFF);
                 tramaEnvia.add(byteCantidadBytesHigh);
-                byte byteCantidadBytesLow = (byte) (6 & 0xFF);
+                byte byteCantidadBytesLow = (byte) (((cantidadvariables * 2)+7) & 0xFF);
                 tramaEnvia.add(byteCantidadBytesLow);
                 
                 // DISPOSITIVO
                 byte byteIdDispositivo = (byte) (this.dto.getIdDispositivo() & 0xFF);
                 tramaEnvia.add(byteIdDispositivo);
 
-                // FUNCION
+                // NRO FUNCION
                 byte byteNroFuncion = (byte)(this.dto.getNroFuncion() & 0xFF);
                 tramaEnvia.add(byteNroFuncion);
             
-                // DIRECCION
-                byte byteDireccionHigh = (byte) ((this.dto.getDireccionInicial() >> 8) & 0xFF);
-                tramaEnvia.add(byteDireccionHigh);
-                byte byteDireccionLow = (byte) (this.dto.getDireccionInicial() & 0xFF);
-                tramaEnvia.add(byteDireccionLow);
-            
-                byte byteValorHigh = (byte) ((valor >> 8) & 0xFF);
-                tramaEnvia.add(byteValorHigh);
-                byte byteValorLow = (byte) (valor & 0xFF);
-                tramaEnvia.add(byteValorLow);
-
+                // DIRECCION INICIAL
+                byte byteDireccionInicialHigh = (byte) (((this.dto.getDireccionInicial()) >> 8) & 0xFF);
+                tramaEnvia.add(byteDireccionInicialHigh);
+                byte byteDireccionInicialLow = (byte) ((this.dto.getDireccionInicial()) & 0xFF);
+                tramaEnvia.add(byteDireccionInicialLow);
+                      
+                // CANTIDAD DE REGISTROS
+                System.out.println("Cantidad de variables a enviar: " + cantidadvariables);
+                byte byteCantidadvariablesHigh = (byte) (((cantidadvariables) >> 8) & 0xFF);
+                tramaEnvia.add(byteCantidadvariablesHigh);
+                byte byteCantidadvariablesLow = (byte) (cantidadvariables & 0xFF);
+                tramaEnvia.add(byteCantidadvariablesLow);
+                
+                // CANTIDAD BYTES
+                byte byteCantidadBytesEnvia = (byte) ((cantidadvariables * 2) & 0xFF);
+                tramaEnvia.add(byteCantidadBytesEnvia);
+                System.out.println("Cantidad de bytes a enviar: " + byteCantidadBytesEnvia);
+          
+                // VALORES
+                st = new StringTokenizer(this.dto.getVariablesDelimitadas(),",");
+                while (st.hasMoreTokens()){
+                    int valor = Integer.parseInt(st.nextToken());
+                    System.out.println("valorrrrrr: "+valor);
+                    byte byteValorHigh = (byte) (((valor) >> 8) & 0xFF);
+                    tramaEnvia.add(byteValorHigh);
+                    byte byteValorLow = (byte) (valor & 0xFF);
+                    tramaEnvia.add(byteValorLow);
+                }
+                
                 // ENVIA TRAMA
                 try {
+                        
                     enviarTrama("127.0.0.1", 502, tramaEnvia);
 
                     // VERIFICA CODIGO DE ERROR
                     dto = new DTOPantalla();
-                    if((int)tramaRecibe.get(7) != 131){ // VERIFICA QUE EL 2DO BYTE NO SEA 83(COD.ERROR)
+                    if((int)tramaRecibe.get(1) != 0x90){ // VERIFICA QUE EL 2DO BYTE NO SEA 90(COD.ERROR)
                         // MUESTRA TRAMA RECIBIDA
                         System.out.println("\nTrama recibida: ");
                         String aux = "";
-                        for (int i = 0; i < tramaRecibe.size(); i++) {
+                        for (int i = 0; i < 6; i++) {
                             System.out.printf("%H ", tramaRecibe.get(i));
                             aux = aux+Integer.toHexString((int)tramaRecibe.get(i))+" ";
                         }
                         System.out.println("\n");
 
+                        // ARMA TRAMA RECIBIDA SIN CRC
+                        byte[] tramaRecibeSinCRC = new byte[6];
+                        for (int i = 0; i < 6; i++) {
+                            tramaRecibeSinCRC[i] = (byte)((int)tramaRecibe.get(i) & 0xFF);
+                        }
+               
                         // HIGH + LOW
-                        for (int i = 0; i < (int)tramaRecibe.get(8); i++) {
+                        for (int i = 0; i < Integer.parseInt(tramaRecibe.get(2).toString()); i++) {
                             int j=i+1;
-                            int high = (int)tramaRecibe.get(9+i) << 8;
-                            int low = (int)tramaRecibe.get(9+j);
+                            int high = (int)tramaRecibe.get(3+i) << 8;
+                            int low = (int)tramaRecibe.get(3+j);
                             int nro = high + low;
                             datosPantalla.add(nro);
                             i++;
@@ -279,7 +309,7 @@ public class ExpertoTcp {
                         dto.setTrama(aux);
                     }else{
                         datosPantalla.add("");
-                        dto.setTrama("ERROR 0x83");
+                        dto.setTrama("ERROR 0x90");
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);

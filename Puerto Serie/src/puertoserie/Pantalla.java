@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Pantalla extends javax.swing.JFrame {
    
-    ExpertoModbus experto = new ExpertoModbus();
+    ExpertoModbus expertoModbus = new ExpertoModbus();
     ExpertoTcp expertoTCP = new ExpertoTcp();
     ArrayList datos;
     DTOPantalla dto = new DTOPantalla();
@@ -176,17 +176,20 @@ public class Pantalla extends javax.swing.JFrame {
                 }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
                     dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
                     this.dto = expertoTCP.funcionSeis(dto);
+                }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
+                    dto.setVariablesDelimitadas(campoCantidadVariables.getText());
+                    this.dto = expertoTCP.funcionDieciseis(dto);
                 }
             } else {
                 if(comboNroFuncion.getSelectedItem().toString().equals("3")){
                     dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
-                    this.dto = experto.funcionTres(dto);
+                    this.dto = expertoModbus.funcionTres(dto);
                 }else if (comboNroFuncion.getSelectedItem().toString().equals("6")){
                     dto.setCantidadVariables(Integer.parseInt(campoCantidadVariables.getText()));
-                    this.dto = experto.funcionSeis(dto);
+                    this.dto = expertoModbus.funcionSeis(dto);
                 }else if (comboNroFuncion.getSelectedItem().toString().equals("16")){
                     dto.setVariablesDelimitadas(campoCantidadVariables.getText());
-                    this.dto = experto.funcionDieciseis(dto);
+                    this.dto = expertoModbus.funcionDieciseis(dto);
                 }
             }
             datos = this.dto.getDatos();

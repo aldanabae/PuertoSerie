@@ -217,7 +217,7 @@ public class ExpertoModbus {
                                 }
                                 // RECIBE
                                 tramaRecibe = new ArrayList();
-                                for (int i = 0; i < 259; i++) {
+                                for (int i = 0; i < 260; i++) {
                                     byte byteRecibido = puertoSerie.recibir();
                                     int datoRecibido = byteRecibido & 0xFF;
                                     tramaRecibe.add(datoRecibido);
@@ -335,7 +335,7 @@ public class ExpertoModbus {
                 st = new StringTokenizer(this.dto.getVariablesDelimitadas(),",");
                 while (st.hasMoreTokens()){
                     int valor = Integer.parseInt(st.nextToken());
-                    System.out.println("valorrrrrr: "+valor);
+                    System.out.println("valor: "+valor);
                     byte byteValorHigh = (byte) (((valor) >> 8) & 0xFF);
                     tramaEnvia.add(byteValorHigh);
                     byte byteValorLow = (byte) (valor & 0xFF);
