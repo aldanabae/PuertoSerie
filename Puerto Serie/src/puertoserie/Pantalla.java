@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Pantalla extends javax.swing.JFrame {
    
-    ExpertoModbus expertoModbus = new ExpertoModbus();
+    ExpertoPuertoSerie expertoModbus = new ExpertoPuertoSerie();
     ExpertoTcp expertoTCP = new ExpertoTcp();
     ArrayList datos;
     DTOPantalla dto = new DTOPantalla();

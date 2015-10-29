@@ -44,7 +44,7 @@ public class ExpertoTcp {
                 byte byteProtocoloLow = (byte) (0 & 0xFF);
                 tramaEnvia.add(byteProtocoloLow);
                 
-                // CANTIDAD BYTES
+                // CANTIDAD BYTES 6 para la fn 3
                 byte byteCantidadBytesHigh = (byte) ((6 >> 8) & 0xFF);
                 tramaEnvia.add(byteCantidadBytesHigh);
                 byte byteCantidadBytesLow = (byte) (6 & 0xFF);
@@ -78,7 +78,7 @@ public class ExpertoTcp {
 
                 // ENVIA TRAMA
                 try {
-                    enviarTrama("127.0.0.1", 502, tramaEnvia);
+                    enviarTrama("127.0.0.1", 502, tramaEnvia);//502 puerto q escucha
 
                     // VERIFICA CODIGO DE ERROR
                     dto = new DTOPantalla();
@@ -108,7 +108,7 @@ public class ExpertoTcp {
                         dto.setTrama("ERROR 0x83");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         variablesEnviadas = variablesEnviadas + 125;
         variablesRestantes = variablesRestantes - 125;
@@ -197,7 +197,7 @@ public class ExpertoTcp {
                         dto.setTrama("ERROR 0x83");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         return dto;
     }
@@ -312,7 +312,7 @@ public class ExpertoTcp {
                         dto.setTrama("ERROR 0x90");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         return dto;
     }

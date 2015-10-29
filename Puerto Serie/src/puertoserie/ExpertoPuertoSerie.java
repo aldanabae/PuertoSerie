@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ExpertoModbus {
+public class ExpertoPuertoSerie {
     
     ArrayList tramaEnvia;
     byte[] tramaEnviaSinCRC;
@@ -157,7 +157,7 @@ public class ExpertoModbus {
                         dto.setTrama("ERROR 0x83");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         variablesEnviadas = variablesEnviadas + 125;
         variablesRestantes = variablesRestantes - 125;
@@ -291,7 +291,7 @@ public class ExpertoModbus {
                         dto.setTrama("ERROR 0x86");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         return dto;
     }     
@@ -456,7 +456,7 @@ public class ExpertoModbus {
                         dto.setTrama("ERROR 0x90");
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ExpertoModbus.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ExpertoPuertoSerie.class.getName()).log(Level.SEVERE, null, ex);
                 }
         return dto;
     }
