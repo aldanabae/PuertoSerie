@@ -13,6 +13,7 @@ public class Mail {
     
     String remitente;
     String asunto;
+    String mensaje;
 
     public String getRemitente() {
         return remitente;
@@ -29,7 +30,12 @@ public class Mail {
     public void setAsunto(String mensaje) {
         this.asunto = mensaje;
     }
-    
-    
-    
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 }
