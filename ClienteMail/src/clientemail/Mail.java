@@ -1,20 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package clientemail;
 
-/**
- *
- * @author Alumno
- */
+import java.util.Date;
+
 public class Mail {
     
+    Date fechaHora;
     String remitente;
     String asunto;
     String mensaje;
 
+    public Date getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+        
     public String getRemitente() {
         return remitente;
     }
