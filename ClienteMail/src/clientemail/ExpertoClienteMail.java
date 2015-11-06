@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package clientemail;
 
 import java.io.File;
@@ -10,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -37,7 +34,7 @@ public class ExpertoClienteMail {
         ArrayList mails = new ArrayList();
         ArrayList remitentesValidos = buscarRemitentesValidos();
 
-        System.out.println("REMITENTES VALIDOS: ");
+        System.out.println("REMITENTES VALIDOS EN XML: ");
         for (int i = 0; i < remitentesValidos.size(); i++) {
             System.out.println(remitentesValidos.get(i).toString());
         }
@@ -144,7 +141,6 @@ public class ExpertoClienteMail {
     
     public String cortarRemitente(String remitente){
         String[] recortado = remitente.split("<");
-        //String aux = recortado[1].substring(0, recortado[1].length()-1);
         recortado = recortado[1].split(">");
         String aux = recortado[0];
         return aux;
@@ -198,5 +194,15 @@ public class ExpertoClienteMail {
         return mensaje;
     }
     
-    
+    public ArrayList extraerVariables (String mensaje){
+        ArrayList variables = new ArrayList();
+        String[] recortado = mensaje.split(">");
+        recortado = recortado[1].split("<");
+        String aux = recortado[0];
+        StringTokenizer st = new StringTokenizer(aux,";");
+        while (st.hasMoreTokens()){
+            variables.add(st.nextToken());
+        }
+        return variables;
+    }
 }
