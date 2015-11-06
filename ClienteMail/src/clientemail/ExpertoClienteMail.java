@@ -2,6 +2,7 @@
 package clientemail;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +23,78 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class ExpertoClienteMail {
     
-    public ArrayList recibirMails() {
+    public void guardarVariablesXML(){
+        
+        ArrayList mails = recibirMails(); // RECIBE MAILS
+        
+        SAXBuilder builder = new SAXBuilder();
+        File archivo = new File("variables.xml");
+        Document doc = new Document();
+        
+        try {
+            // PARA ABRIR O CREAR ARCHIVO
+            if (archivo.exists()) {
+                doc = (Document) builder.build(archivo);
+            } else {
+                Element variables = new Element("variables");
+                doc.setRootElement(variables);
+            }
+            
+            // POR CADA MAIL RECIBIDO
+            for (int i = 0; i < mails.size(); i++) {
+                
+            Mail mailRecibido = (Mail) mails.get(i);
+            ArrayList variables = extraerVariables(mailRecibido.getMensaje());
+                        
+            //Element mail = new Element("mail");
+            //mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
+            
+           Element mail = doc.getRootElement().
+            
+                Element timestamp = new Element("timestamp");
+                timestamp.setAttribute(new Attribute("id", mailRecibido.getFechaHora().toString()));
+                timestamp.addContent(new Element("temperatura").setText(variables.get(1).toString()));
+                timestamp.addContent(new Element("tension").setText(variables.get(2).toString()));
+                timestamp.addContent(new Element("corriente").setText(variables.get(3).toString()));
+                timestamp.addContent(new Element("potencia").setText(variables.get(4).toString()));
+                timestamp.addContent(new Element("presion").setText(variables.get(5).toString()));
+
+                mail.addContent(timestamp);
+                
+                doc.getRootElement().addContent(mail);
+            }
+            
+            // new XMLOutputter().output(doc, System.out);
+            XMLOutputter xmlOutput = new XMLOutputter();
+
+            // display nice nice
+            xmlOutput.setFormat(Format.getPrettyFormat());
+            xmlOutput.output(doc, new FileWriter("variables.xml"));
+
+            System.out.println("Archivo guardado!");
+        } catch (IOException io) {
+            System.out.println(io.getMessage());
+            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, io);
+        } catch (JDOMException ex) {
+            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList recibirMails() { // DEVUELVE UNA LISTA COON LOS MAILS RECIBIDOS Y FILTRADOS
 
         ArrayList mails = new ArrayList();
-        ArrayList remitentesValidos = buscarRemitentesValidos();
+        ArrayList remitentesValidos = buscarRemitentesXML();
 
         System.out.println("REMITENTES VALIDOS EN XML: ");
         for (int i = 0; i < remitentesValidos.size(); i++) {
@@ -63,10 +125,7 @@ public class ExpertoClienteMail {
             Folder folder = store.getFolder("INBOX");
             folder.open(Folder.READ_ONLY);
 
-            int totalMjes = folder.getMessageCount();
             int mjesNoLeidos = folder.getUnreadMessageCount();
-            
-            System.out.println("Total de mensajes: " + totalMjes);
             System.out.println("Total de mensajes no leidos: " + mjesNoLeidos);
             System.out.println("-----------------------------------------------");
 
@@ -76,7 +135,7 @@ public class ExpertoClienteMail {
                 if (esRemitenteValido(cortarRemitente(mensajes[i].getFrom()[0].toString()), remitentesValidos)) {
                     Mail mail = new Mail();
                     mail.setFechaHora(mensajes[i].getSentDate());
-                    mail.setRemitente(mensajes[i].getFrom()[0].toString());
+                    mail.setRemitente(cortarRemitente(mensajes[i].getFrom()[0].toString()));
                     mail.setAsunto(mensajes[i].getSubject());
                     mail.setMensaje(extraerMensaje(mensajes[i]));
                     mails.add(mail);
@@ -91,10 +150,9 @@ public class ExpertoClienteMail {
             Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mails;
-
     }
  
-    public ArrayList buscarRemitentesValidos() {
+    public ArrayList buscarRemitentesXML() { // DEVULVE UNA LISTA DE LOS REMITENTES PERMITIDOS
         ArrayList remitentes = new ArrayList();
         //Se crea un SAXBuilder para poder parsear el archivo
         SAXBuilder builder = new SAXBuilder();
@@ -129,7 +187,7 @@ public class ExpertoClienteMail {
         return remitentes;
     }
     
-    public Boolean esRemitenteValido(String remitente, ArrayList listado){
+    public Boolean esRemitenteValido(String remitente, ArrayList listado){ // VERIFICA SI EL REMITENTE ESTA EN EL XML
         Boolean resultado = false;
         for (int i = 0; i < listado.size(); i++) {
             if(remitente.equals(listado.get(i).toString())){
@@ -139,14 +197,14 @@ public class ExpertoClienteMail {
         return resultado;
     }
     
-    public String cortarRemitente(String remitente){
+    public String cortarRemitente(String remitente){ // DEVUELVE EL MAIL DEL REMITENTE
         String[] recortado = remitente.split("<");
         recortado = recortado[1].split(">");
         String aux = recortado[0];
         return aux;
     }
     
-    public String extraerMensaje (Message mail){
+    public String extraerMensaje (Message mail){ // EXTRAE EL BODY DEL MAIL
         String mensaje = "";
         try {
             Object content = mail.getContent();
@@ -194,7 +252,7 @@ public class ExpertoClienteMail {
         return mensaje;
     }
     
-    public ArrayList extraerVariables (String mensaje){
+    public ArrayList extraerVariables (String mensaje){ // DEVUELVE UNA LISTA CON LOS VALORES DE LAS VARIABLES DEL MAIL
         ArrayList variables = new ArrayList();
         String[] recortado = mensaje.split(">");
         recortado = recortado[1].split("<");

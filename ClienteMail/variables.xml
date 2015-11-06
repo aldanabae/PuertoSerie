@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variables>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="Fri Nov 06 15:05:32 ART 2015">
+      <temperatura>2</temperatura>
+      <tension>3</tension>
+      <corriente>4</corriente>
+      <potencia>5</potencia>
+      <presion>6</presion>
+    </timestamp>
+  </mail>
+</variables>

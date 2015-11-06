@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variables>
+  <timestamp id="fecha y hora">
+    <mail id="remitente">
+      <temperatura>1</temperatura>
+      <tension>22</tension>
+      <corriente>333</corriente>
+      <potencia>4444</potencia>
+      <presion>55555</presion>
+    </mail>
+    <mail id="remitente">
+      <temperatura>1</temperatura>
+      <tension>22</tension>
+      <corriente>333</corriente>
+      <potencia>4444</potencia>
+      <presion>55555</presion>
+    </mail>
+    <mail id="remitente">
+      <temperatura>1</temperatura>
+      <tension>22</tension>
+      <corriente>333</corriente>
+      <potencia>4444</potencia>
+      <presion>55555</presion>
+    </mail>
+    <mail id="remitente">
+      <temperatura>1</temperatura>
+      <tension>22</tension>
+      <corriente>333</corriente>
+      <potencia>4444</potencia>
+      <presion>55555</presion>
+    </mail>
+  </timestamp>
+  <timestamp id="fecha y hora" />
+</variables>
