@@ -32,10 +32,16 @@ import org.jdom2.output.XMLOutputter;
 public class ClienteMail {
 
     public static void main(String[] args) {
+       
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                ExpertoClienteMail experto = new ExpertoClienteMail();
+                experto.guardarVariablesXML();
+                }
+        }, 5000, 60000);
         
-        ExpertoClienteMail experto = new ExpertoClienteMail();
-        experto.guardarVariablesXML();
-//        
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
 //            @Override

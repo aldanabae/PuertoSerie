@@ -54,16 +54,22 @@ public class ExpertoClienteMail {
             // POR CADA MAIL RECIBIDO
             for (int i = 0; i < mails.size(); i++) {
                 
-            Mail mailRecibido = (Mail) mails.get(i);
-            ArrayList variables = extraerVariables(mailRecibido.getMensaje());
-                        
-            //Element mail = new Element("mail");
-            //mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
-            
-           Element mail = doc.getRootElement().
-            
+                Mail mailRecibido = (Mail) mails.get(i);
+                ArrayList variables = extraerVariables(mailRecibido.getMensaje());
+                
+                if (variables.size() == 6) {
+                // VALIDA SI SON NUMEROS
+                for (int j = 1; j < variables.size(); j++) {
+                    if(!esNumero(variables.get(j).toString())){
+                        System.out.println(variables.get(j).toString() + " NO ES UN NUMERO");
+                    } 
+                }
+                
+                Element mail = new Element("mail");
+                mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
+
                 Element timestamp = new Element("timestamp");
-                timestamp.setAttribute(new Attribute("id", mailRecibido.getFechaHora().toString()));
+                timestamp.setAttribute(new Attribute("id", variables.get(0).toString()));
                 timestamp.addContent(new Element("temperatura").setText(variables.get(1).toString()));
                 timestamp.addContent(new Element("tension").setText(variables.get(2).toString()));
                 timestamp.addContent(new Element("corriente").setText(variables.get(3).toString()));
@@ -71,8 +77,9 @@ public class ExpertoClienteMail {
                 timestamp.addContent(new Element("presion").setText(variables.get(5).toString()));
 
                 mail.addContent(timestamp);
-                
+
                 doc.getRootElement().addContent(mail);
+                }
             }
             
             // new XMLOutputter().output(doc, System.out);
@@ -83,6 +90,8 @@ public class ExpertoClienteMail {
             xmlOutput.output(doc, new FileWriter("variables.xml"));
 
             System.out.println("Archivo guardado!");
+            System.out.println("-----------------------------------------------");
+            
         } catch (IOException io) {
             System.out.println(io.getMessage());
             Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, io);
@@ -156,7 +165,7 @@ public class ExpertoClienteMail {
         ArrayList remitentes = new ArrayList();
         //Se crea un SAXBuilder para poder parsear el archivo
         SAXBuilder builder = new SAXBuilder();
-        File archivo = new File("listado.xml");
+        File archivo = new File("listadoRemitentes.xml");
         try {
             //Se crea el documento a traves del archivo
             Document document = (Document) builder.build(archivo);
@@ -263,4 +272,15 @@ public class ExpertoClienteMail {
         }
         return variables;
     }
+    
+    private boolean esNumero(String numero){
+        try {
+            Long.parseLong(numero);
+            return true;
+    	} catch (NumberFormatException nfe){
+            System.out.println(nfe);
+            return false;
+    	}
+    }
+    
 }
