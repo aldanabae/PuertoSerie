@@ -1,21 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <variables>
-  <mail id="pablomartinez123@hotmail.com">
-    <timestamp id="26-10-2015 19:13:32">
-      <temperatura>101</temperatura>
-      <tension>202</tension>
-      <corriente>303</corriente>
-      <potencia>404</potencia>
-      <presion>505</presion>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="07-11-2015 14:44:32">
+      <temperatura>28</temperatura>
+      <tension>45</tension>
+      <corriente>64</corriente>
+      <potencia>34</potencia>
+      <presion>25</presion>
     </timestamp>
   </mail>
-  <mail id="pablomartinez123@hotmail.com">
-    <timestamp id="26-09-1984 18:19:20">
-      <temperatura>999</temperatura>
-      <tension>888</tension>
-      <corriente>777</corriente>
-      <potencia>666</potencia>
-      <presion>555</presion>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="25-05-1985 16:54:45">
+      <temperatura>36</temperatura>
+      <tension>56</tension>
+      <corriente>34</corriente>
+      <potencia>23</potencia>
+      <presion>78</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="15-05-2015 15:45:12">
+      <temperatura>4</temperatura>
+      <tension>5</tension>
+      <corriente>6</corriente>
+      <potencia>a</potencia>
+      <presion>8</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>1</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>w</potencia>
+      <presion>5</presion>
     </timestamp>
   </mail>
 </variables>

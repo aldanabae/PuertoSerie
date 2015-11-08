@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
@@ -23,6 +22,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import org.apache.log4j.PropertyConfigurator;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -31,11 +31,18 @@ import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class ExpertoClienteMail {
     
+    private static final Logger log = Logger.getLogger(ExpertoClienteMail.class);
+    
     public void guardarVariablesXML(){
         
+        DOMConfigurator.configure("log4j.xml");
+               
         ArrayList mails = recibirMails(); // RECIBE MAILS
         
         SAXBuilder builder = new SAXBuilder();
@@ -61,7 +68,8 @@ public class ExpertoClienteMail {
                 // VALIDA SI SON NUMEROS
                 for (int j = 1; j < variables.size(); j++) {
                     if(!esNumero(variables.get(j).toString())){
-                        System.out.println(variables.get(j).toString() + " NO ES UN NUMERO");
+                        //System.out.println(variables.get(j).toString() + " NO ES UN NUMERO");
+                        log.warn("NO es un numero: " + variables.get(j).toString());
                     } 
                 }
                 
@@ -93,10 +101,9 @@ public class ExpertoClienteMail {
             System.out.println("-----------------------------------------------");
             
         } catch (IOException io) {
-            System.out.println(io.getMessage());
-            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, io);
+            System.out.println(io);
         } catch (JDOMException ex) {
-            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
     
@@ -154,9 +161,9 @@ public class ExpertoClienteMail {
             store.close();
 
         } catch (NoSuchProviderException ex) {
-            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         } catch (MessagingException ex) {
-            Logger.getLogger(ClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return mails;
     }
@@ -254,9 +261,9 @@ public class ExpertoClienteMail {
                 }
             }            
         } catch (MessagingException ex) {
-            Logger.getLogger(ExpertoClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         } catch (IOException ex) {
-            Logger.getLogger(ExpertoClienteMail.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return mensaje;
     }
@@ -278,9 +285,10 @@ public class ExpertoClienteMail {
             Long.parseLong(numero);
             return true;
     	} catch (NumberFormatException nfe){
-            System.out.println(nfe);
             return false;
     	}
     }
+    
+    
     
 }
