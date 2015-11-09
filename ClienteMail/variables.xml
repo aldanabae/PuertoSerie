@@ -99,4 +99,76 @@
       <presion>5</presion>
     </timestamp>
   </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="05-12-2015 18:15:54">
+      <temperatura>34</temperatura>
+      <tension>23</tension>
+      <corriente>78</corriente>
+      <potencia>56</potencia>
+      <presion>34</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="05-12-2015 18:15:54">
+      <temperatura>34</temperatura>
+      <tension>23</tension>
+      <corriente>78</corriente>
+      <potencia>56</potencia>
+      <presion>34</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="05-12-2015 18:15:54">
+      <temperatura>34</temperatura>
+      <tension>23</tension>
+      <corriente>78</corriente>
+      <potencia>56</potencia>
+      <presion>34</presion>
+    </timestamp>
+  </mail>
+  <mail id="pablomartinez123@hotmail.com">
+    <timestamp id="2015">
+      <temperatura>24</temperatura>
+      <tension>47</tension>
+      <corriente>38</corriente>
+      <potencia>48</potencia>
+      <presion>999</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="34">
+      <temperatura>25</temperatura>
+      <tension>26</tension>
+      <corriente>27</corriente>
+      <potencia>27</potencia>
+      <presion>27</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="34">
+      <temperatura>25</temperatura>
+      <tension>26</tension>
+      <corriente>27</corriente>
+      <potencia>27</potencia>
+      <presion>27</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="AFSA">
+      <temperatura>24</temperatura>
+      <tension>24</tension>
+      <corriente>F</corriente>
+      <potencia>32</potencia>
+      <presion>U</presion>
+    </timestamp>
+  </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="4234">
+      <temperatura>200</temperatura>
+      <tension>2</tension>
+      <corriente>3</corriente>
+      <potencia>a</potencia>
+      <presion>5</presion>
+    </timestamp>
+  </mail>
 </variables>

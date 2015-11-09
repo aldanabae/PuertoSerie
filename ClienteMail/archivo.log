@@ -1,3 +1,145 @@
-21:10:44,102 [Timer-0] WARN  clientemail.ExpertoClienteMail null - NO es un numero: a
-21:10:44,105 [Timer-0] WARN  clientemail.ExpertoClienteMail null - NO es un numero: a
-21:13:33,828 [Timer-0] WARN  Experto null - NO es un numero: w
+22:20:31,963 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:21:31,235 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:22:31,589 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:23:31,283 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:24:31,338 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:25:32,160 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+22:25:32,214 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+22:26:31,095 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:27:31,903 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+22:28:59,572 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:29:58,267 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:30:30,917 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:31:30,100 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:32:30,945 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+22:32:30,961 [Timer-0] WARN  clientemail.ExpertoClienteMail null - Trama incorrecta.
+22:32:30,986 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+22:34:12,575 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:35:11,903 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+22:35:11,919 [Timer-0] WARN  clientemail.ExpertoClienteMail null - Trama incorrecta.
+22:35:11,952 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+22:36:11,397 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:37:10,979 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:38:10,440 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:39:10,140 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:40:11,000 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:41:09,996 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:42:10,451 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:43:10,096 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:44:11,091 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:45:10,224 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:46:10,591 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:47:10,112 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:48:10,091 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:49:09,926 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:50:10,023 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:51:10,101 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:52:10,265 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:53:10,018 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:54:10,526 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:55:10,333 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:56:10,155 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:57:10,462 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:58:10,528 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:59:10,265 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:00:10,086 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:01:10,052 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:02:09,917 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:03:10,224 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:04:09,948 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:05:15,264 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:06:10,104 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:07:10,525 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:08:09,974 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:09:10,574 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:10:10,502 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:11:10,059 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:12:10,592 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:13:10,251 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:14:10,093 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:15:10,171 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:16:10,243 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:17:10,364 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:18:10,494 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:19:10,504 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:20:10,116 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:21:10,046 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:22:10,063 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:23:10,513 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:24:10,060 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:25:10,139 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:26:10,045 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:27:10,676 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:28:10,768 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:29:10,177 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:30:10,170 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:31:10,025 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:32:10,081 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:33:10,207 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:34:11,582 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 2
+23:34:11,622 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+23:35:10,115 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:36:10,336 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:37:10,816 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+23:37:10,825 [Timer-0] WARN  clientemail.ExpertoClienteMail null - NO ES UN NUMERO: F
+23:37:10,825 [Timer-0] WARN  clientemail.ExpertoClienteMail null - NO ES UN NUMERO: U
+23:37:10,835 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+23:38:10,017 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:39:10,228 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:40:10,510 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:41:10,099 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:42:10,690 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:43:10,188 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:44:06,568 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+23:44:06,592 [Timer-0] WARN  clientemail.ExpertoClienteMail null - TEMPERATURA FUERA DE RANGO
+23:44:06,593 [Timer-0] WARN  clientemail.ExpertoClienteMail null - NO ES UN NUMERO: a
+23:44:06,630 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+23:45:04,910 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:46:04,381 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+23:47:10,045 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:10:38,968 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:10:52,574 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:11:06,875 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:11:37,808 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:11:49,566 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:12:03,722 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:12:26,397 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:12:47,053 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:13:02,971 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:13:26,240 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:13:49,534 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:13:49,556 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:14:02,862 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:14:25,793 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:14:42,816 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:14:49,549 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:15:01,654 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:15:25,417 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:16:25,672 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:17:18,061 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:17:26,782 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:17:39,264 [Timer-2] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:17:59,331 [Timer-3] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Couldn't connect to host, port: pop.gl.com, 995; timeout -1
+01:17:59,332 [Timer-3] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:23:48,089 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:25:38,953 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:28:24,134 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:28:46,251 [Timer-1] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Couldn't connect to host, port: pop.g.com, 995; timeout -1
+01:28:46,252 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:29:19,018 [Timer-3] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Couldn't connect to host, port: pop.g.com, 995; timeout -1
+01:29:19,020 [Timer-3] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:30:14,082 [Timer-3] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Couldn't connect to host, port: pop.g.com, 995; timeout -1
+01:30:14,083 [Timer-3] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:32:10,922 [Timer-0] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Couldn't connect to host, port: pop.gl.com, 995; timeout -1
+01:32:10,926 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:33:08,361 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:35:04,134 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:36:28,883 [Timer-2] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:36:48,659 [Timer-3] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: [SYS/TEMP] Temporary system problem.  Please try again later. m66mb19179223vka
+01:36:48,660 [Timer-3] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:37:19,880 [Timer-4] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: [SYS/TEMP] Temporary system problem.  Please try again later. b189mb100851066vke
+01:37:19,881 [Timer-4] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:37:28,189 [Timer-5] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: [SYS/TEMP] Temporary system problem.  Please try again later. u68mb169841655vkg
+01:37:28,190 [Timer-5] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+01:38:02,162 [Timer-6] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: [AUTH] Username and password not accepted.
+01:38:02,163 [Timer-6] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.

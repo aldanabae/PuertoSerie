@@ -39,136 +39,164 @@ public class ExpertoClienteMail {
     
     private static final Logger log = Logger.getLogger(ExpertoClienteMail.class);
     
-    public void guardarVariablesXML(){
+    public void guardarVariablesXML(String servidor, String usuario, String contrasenia){
         
         DOMConfigurator.configure("log4j.xml");
                
-        ArrayList mails = recibirMails(); // RECIBE MAILS
+        ArrayList mails = recibirMails(servidor, usuario, contrasenia); // RECIBE MAILS
         
-        SAXBuilder builder = new SAXBuilder();
-        File archivo = new File("variables.xml");
-        Document doc = new Document();
-        
-        try {
-            // PARA ABRIR O CREAR ARCHIVO
-            if (archivo.exists()) {
-                doc = (Document) builder.build(archivo);
-            } else {
-                Element variables = new Element("variables");
-                doc.setRootElement(variables);
-            }
+        if (mails.size() > 0) {
             
-            // POR CADA MAIL RECIBIDO
-            for (int i = 0; i < mails.size(); i++) {
-                
-                Mail mailRecibido = (Mail) mails.get(i);
-                ArrayList variables = extraerVariables(mailRecibido.getMensaje());
-                
-                if (variables.size() == 6) {
-                // VALIDA SI SON NUMEROS
-                for (int j = 1; j < variables.size(); j++) {
-                    if(!esNumero(variables.get(j).toString())){
-                        //System.out.println(variables.get(j).toString() + " NO ES UN NUMERO");
-                        log.warn("NO es un numero: " + variables.get(j).toString());
-                    } 
-                }
-                
-                Element mail = new Element("mail");
-                mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
-
-                Element timestamp = new Element("timestamp");
-                timestamp.setAttribute(new Attribute("id", variables.get(0).toString()));
-                timestamp.addContent(new Element("temperatura").setText(variables.get(1).toString()));
-                timestamp.addContent(new Element("tension").setText(variables.get(2).toString()));
-                timestamp.addContent(new Element("corriente").setText(variables.get(3).toString()));
-                timestamp.addContent(new Element("potencia").setText(variables.get(4).toString()));
-                timestamp.addContent(new Element("presion").setText(variables.get(5).toString()));
-
-                mail.addContent(timestamp);
-
-                doc.getRootElement().addContent(mail);
-                }
-            }
-            
-            // new XMLOutputter().output(doc, System.out);
-            XMLOutputter xmlOutput = new XMLOutputter();
-
-            // display nice nice
-            xmlOutput.setFormat(Format.getPrettyFormat());
-            xmlOutput.output(doc, new FileWriter("variables.xml"));
-
-            System.out.println("Archivo guardado!");
+            System.out.println("CANTIDAD DE MAILS RECIBIDOS: " + mails.size());
             System.out.println("-----------------------------------------------");
-            
-        } catch (IOException io) {
-            System.out.println(io);
-        } catch (JDOMException ex) {
-            System.out.println(ex);
+            log.info("CANTIDAD DE MAILS RECIBIDOS: " + mails.size());
+
+            SAXBuilder builder = new SAXBuilder();
+            File archivo = new File("variables.xml"); // ARCHIVO DONDE SE GUARDARAN LAS VARIABLES RECIBIDAS
+            Document doc = new Document();
+
+            try {
+                if (archivo.exists()) {
+                    doc = (Document) builder.build(archivo); // SI EL ARCHIVO variables.xml EXISTE
+                } else {
+                    Element variables = new Element("variables"); // SI EL ARCHIVO variables.xml NO EXISTE
+                    doc.setRootElement(variables);
+                }
+
+                // POR CADA MAIL RECIBIDO
+                for (int i = 0; i < mails.size(); i++) {
+
+                    Mail mailRecibido = (Mail) mails.get(i);
+                    ArrayList variables = extraerVariables(mailRecibido.getMensaje()); // EXTRAE LAS VARIABLES DEL MAIL RECIBIDO (temp, presion, etc)
+
+                    if (variables.size() == 6) { // SI LA TRAMA TIENE LA CANTIDAD DE VARIABLES CORRECTA
+                        // POR CADA VARIABLES RECIBIDA
+                        for (int j = 1; j < variables.size(); j++) { 
+                            if (!esNumero(variables.get(j).toString())) { // VALIDA QUE CADA VARIABLES RECIBIDA SEA UN NUMERO
+                                System.out.println(mailRecibido.getRemitente() + ": "+ variables.get(j).toString() + " NO ES UN NUMERO");
+                                log.warn(mailRecibido.getRemitente() + ": "+ variables.get(j).toString() + " NO ES UN NUMERO");
+                            } else{
+                                switch(j){
+                                    case 1:
+                                        int aux = Integer.parseInt(variables.get(j).toString());    
+                                        if(aux > 100 || aux < -100)
+                                            System.out.println(mailRecibido.getRemitente() + "TEMPERATURA FUERA DE RANGO");
+                                            log.warn(mailRecibido.getRemitente() + "TEMPERATURA FUERA DE RANGO");
+                                    break;
+                                }
+                            }
+                        }
+
+                        Element mail = new Element("mail");
+                        mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
+
+                        Element timestamp = new Element("timestamp");
+                        timestamp.setAttribute(new Attribute("id", variables.get(0).toString()));
+                        timestamp.addContent(new Element("temperatura").setText(variables.get(1).toString()));
+                        timestamp.addContent(new Element("tension").setText(variables.get(2).toString()));
+                        timestamp.addContent(new Element("corriente").setText(variables.get(3).toString()));
+                        timestamp.addContent(new Element("potencia").setText(variables.get(4).toString()));
+                        timestamp.addContent(new Element("presion").setText(variables.get(5).toString()));
+
+                        mail.addContent(timestamp);
+
+                        doc.getRootElement().addContent(mail);
+
+                    } else {
+                        System.out.println(mailRecibido.getRemitente() + "TRAMA INCORRECTA.");
+                        log.warn(mailRecibido.getRemitente() + "TRAMA INCORRECTA.");
+                    }
+                }
+
+                // PARA GUARDAR EN EL ARCHIVO LAS VARIABLES RECIBIDAS
+                XMLOutputter xmlOutput = new XMLOutputter();
+                xmlOutput.setFormat(Format.getPrettyFormat()); // PARA VER BONITO
+                xmlOutput.output(doc, new FileWriter("variables.xml"));
+
+                System.out.println("ARCHIVO GUARDADO.");
+                log.info("ARCHIVO GUARDADO.");
+
+            } catch (IOException io) {
+                log.error(io.getMessage());
+            } catch (JDOMException ex) {
+                log.error(ex.getMessage());
+            }
+        } else {
+            System.out.println("NO SE HAN RECIBIDO MAILS");
+            System.out.println("-----------------------------------------------");
+            log.info("NO SE HAN RECIBIDO MAILS.");
         }
     }
     
-    public ArrayList recibirMails() { // DEVUELVE UNA LISTA COON LOS MAILS RECIBIDOS Y FILTRADOS
+    public ArrayList recibirMails(String servidor, String usuario, String contrasenia) { // DEVUELVE UNA LISTA COON LOS MAILS RECIBIDOS Y FILTRADOS
 
         ArrayList mails = new ArrayList();
         ArrayList remitentesValidos = buscarRemitentesXML();
 
-        System.out.println("REMITENTES VALIDOS EN XML: ");
-        for (int i = 0; i < remitentesValidos.size(); i++) {
-            System.out.println(remitentesValidos.get(i).toString());
-        }
-        System.out.println("-----------------------------------------------");
+        if (remitentesValidos.size() > 0) {
 
-        try {
-            Properties prop = new Properties();
-
-            // Deshabilitamos TLS
-            prop.setProperty("mail.pop3.starttls.enable", "false");
-
-            // Hay que usar SSL
-            prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            prop.setProperty("mail.pop3.socketFactory.fallback", "false");
-
-            // Puerto 995 para conectarse.
-            prop.setProperty("mail.pop3.port", "995");
-            prop.setProperty("mail.pop3.socketFactory.port", "995");
-
-            Session sesion = Session.getInstance(prop);
-
-            // Para obtener un log más extenso.
-            //sesion.setDebug(true);
-            Store store = sesion.getStore("pop3s");
-            store.connect("pop.gmail.com", "ssi.proyectofinal@gmail.com", "ssi1234*");
-            Folder folder = store.getFolder("INBOX");
-            folder.open(Folder.READ_ONLY);
-
-            int mjesNoLeidos = folder.getUnreadMessageCount();
-            System.out.println("Total de mensajes no leidos: " + mjesNoLeidos);
+            System.out.println("REMITENTES VALIDOS EN XML: ");
+            for (int i = 0; i < remitentesValidos.size(); i++) {
+                System.out.println(remitentesValidos.get(i).toString());
+            }
             System.out.println("-----------------------------------------------");
 
-            Message[] mensajes = folder.getMessages();
+            try {
+                Properties prop = new Properties();
 
-            for (int i = 0; i < mensajes.length; i++) {
-                if (esRemitenteValido(cortarRemitente(mensajes[i].getFrom()[0].toString()), remitentesValidos)) {
-                    Mail mail = new Mail();
-                    mail.setFechaHora(mensajes[i].getSentDate());
-                    mail.setRemitente(cortarRemitente(mensajes[i].getFrom()[0].toString()));
-                    mail.setAsunto(mensajes[i].getSubject());
-                    mail.setMensaje(extraerMensaje(mensajes[i]));
-                    mails.add(mail);
+                // Deshabilitamos TLS
+                prop.setProperty("mail.pop3.starttls.enable", "false");
+
+                // Hay que usar SSL
+                prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                prop.setProperty("mail.pop3.socketFactory.fallback", "false");
+
+                // Puerto 995 para conectarse.
+                prop.setProperty("mail.pop3.port", "995");
+                prop.setProperty("mail.pop3.socketFactory.port", "995");
+
+                Session sesion = Session.getInstance(prop);
+
+            // Para obtener un log más extenso.
+                //sesion.setDebug(true);
+                Store store = sesion.getStore("pop3s");
+                // store.connect("pop.gmail.com", "ssi.proyectofinal@gmail.com", "ssi1234*");
+                store.connect(servidor, usuario, contrasenia);
+                Folder folder = store.getFolder("INBOX");
+                folder.open(Folder.READ_ONLY);
+
+                Message[] mensajes = folder.getMessages();
+
+                for (int i = 0; i < mensajes.length; i++) {
+                    if (esRemitenteValido(cortarRemitente(mensajes[i].getFrom()[0].toString()), remitentesValidos)) {
+                        Mail mail = new Mail();
+                        mail.setFechaHora(mensajes[i].getSentDate());
+                        mail.setRemitente(cortarRemitente(mensajes[i].getFrom()[0].toString()));
+                        mail.setAsunto(mensajes[i].getSubject());
+                        mail.setMensaje(extraerMensaje(mensajes[i]));
+                        mails.add(mail);
+                    }
                 }
+
+                store.close();
+
+            } catch (NoSuchProviderException ex) {
+                System.out.println(ex);
+            } catch (MessagingException ex) {
+                System.out.println("FALLO LOGIN");
+                System.out.println("-----------------------------------------------");
+                log.error("FALLO LOGIN: " + ex.getMessage());
             }
-
-            store.close();
-
-        } catch (NoSuchProviderException ex) {
-            System.out.println(ex);
-        } catch (MessagingException ex) {
-            System.out.println(ex);
+        } else {
+            System.out.println("NO HAY REMITENTES EN EL XML");
+            System.out.println("-----------------------------------------------");
+            log.warn("NO HAY REMITENTES VALIDOS");
         }
         return mails;
     }
  
     public ArrayList buscarRemitentesXML() { // DEVULVE UNA LISTA DE LOS REMITENTES PERMITIDOS
+        
         ArrayList remitentes = new ArrayList();
         //Se crea un SAXBuilder para poder parsear el archivo
         SAXBuilder builder = new SAXBuilder();
@@ -196,9 +224,9 @@ public class ExpertoClienteMail {
 
                 }
         } catch (IOException io) {
-            System.out.println(io.getMessage());
+            log.error("NO EXISTE EL ARCHIVO DE REMITENTES");
         } catch (JDOMException jdomex) {
-            System.out.println(jdomex.getMessage());
+            log.error(jdomex.getMessage());
         }
         return remitentes;
     }
@@ -240,23 +268,10 @@ public class ExpertoClienteMail {
                     if (bp instanceof MimeBodyPart) {
                         MimeBodyPart mbp = (MimeBodyPart) bp;
 
-                        // Time to grab and edit the body
                         if (mbp.isMimeType("text/plain"))  { // SI ESA PARTE ES TEXTO PLANO
  
                             mensaje = (String) mbp.getContent();
-
-                            //Reset the content
-                            //mbp.setContent(body, "text/plain");
                         }
-                        //} else if (mbp.isMimeType("text/html")) { // SI ESA PARTE ES HTML
-
-                            //String body = (String) mbp.getContent();
-
-                            //body = addStrToHtmlBody(mesgStr, body);
-
-                            // Reset the content
-                            //mbp.setContent(body, "text/html");
-                        //}
                     }
                 }
             }            
@@ -271,11 +286,13 @@ public class ExpertoClienteMail {
     public ArrayList extraerVariables (String mensaje){ // DEVUELVE UNA LISTA CON LOS VALORES DE LAS VARIABLES DEL MAIL
         ArrayList variables = new ArrayList();
         String[] recortado = mensaje.split(">");
+        if(recortado.length > 1){
         recortado = recortado[1].split("<");
         String aux = recortado[0];
         StringTokenizer st = new StringTokenizer(aux,";");
         while (st.hasMoreTokens()){
             variables.add(st.nextToken());
+        }
         }
         return variables;
     }
