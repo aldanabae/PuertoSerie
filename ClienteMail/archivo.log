@@ -143,3 +143,58 @@
 01:37:28,190 [Timer-5] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
 01:38:02,162 [Timer-6] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: [AUTH] Username and password not accepted.
 01:38:02,163 [Timer-6] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:40:39,842 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:41:38,089 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 2
+17:41:38,152 [Timer-0] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.comTEMPERATURA FUERA DE RANGO
+17:41:38,167 [Timer-0] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.comTEMPERATURA FUERA DE RANGO
+17:41:38,339 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+17:42:36,550 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:43:36,691 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:44:40,161 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:45:44,438 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+17:46:50,254 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:26:51,096 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:27:07,283 [Timer-1] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 2
+18:27:07,423 [Timer-1] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.com TEMPERATURA FUERA DE RANGO
+18:27:07,423 [Timer-1] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.com TEMPERATURA FUERA DE RANGO
+18:27:07,564 [Timer-1] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:28:06,367 [Timer-1] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:28:06,414 [Timer-1] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.com TEMPERATURA FUERA DE RANGO
+18:28:06,445 [Timer-1] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:29:06,147 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:30:24,531 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:30:24,609 [Timer-0] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.com TEMPERATURA FUERA DE RANGO
+18:30:24,719 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:35:54,390 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:35:54,561 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:36:46,284 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:36:46,362 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:37:47,517 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:37:47,580 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:38:45,273 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:39:56,047 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:39:56,234 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:40:50,648 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:40:50,710 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:42:24,301 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:42:24,473 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:43:21,159 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:43:21,237 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:44:22,777 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:44:22,975 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:45:25,206 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:45:25,284 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:46:21,576 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:46:21,623 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:47:20,264 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:50:15,166 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:50:15,416 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:51:10,819 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:52:10,812 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:53:49,009 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+18:53:49,211 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:54:48,217 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:55:45,179 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+18:56:48,849 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 2
+18:56:48,947 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+18:57:47,089 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.

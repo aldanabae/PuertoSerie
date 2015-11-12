@@ -39,7 +39,10 @@ public class ExpertoClienteMail {
     
     private static final Logger log = Logger.getLogger(ExpertoClienteMail.class);
     
-    public void guardarVariablesXML(String servidor, String usuario, String contrasenia){
+    // GUARDA LAS VARIABLES DE LOS MAILS EN EL XML
+    public String guardarVariablesXML(String servidor, String usuario, String contrasenia){
+        
+        String variablesPantalla = "";
         
         DOMConfigurator.configure("log4j.xml");
                
@@ -79,9 +82,10 @@ public class ExpertoClienteMail {
                                 switch(j){
                                     case 1:
                                         int aux = Integer.parseInt(variables.get(j).toString());    
-                                        if(aux > 100 || aux < -100)
+                                        if(aux > 100 || aux < -100){
                                             System.out.println(mailRecibido.getRemitente() + "TEMPERATURA FUERA DE RANGO");
-                                            log.warn(mailRecibido.getRemitente() + "TEMPERATURA FUERA DE RANGO");
+                                            log.warn(mailRecibido.getRemitente() + " TEMPERATURA FUERA DE RANGO");
+                                        }
                                     break;
                                 }
                             }
@@ -97,6 +101,15 @@ public class ExpertoClienteMail {
                         timestamp.addContent(new Element("corriente").setText(variables.get(3).toString()));
                         timestamp.addContent(new Element("potencia").setText(variables.get(4).toString()));
                         timestamp.addContent(new Element("presion").setText(variables.get(5).toString()));
+                        
+                        variablesPantalla = variablesPantalla + 
+                                "\n" + mailRecibido.getRemitente() +
+                                "\nFecha y Hora: " + variables.get(0).toString() +
+                                "\nTemperatura: " + variables.get(1).toString() +
+                                "\nTensión: " + variables.get(2).toString() +
+                                "\nCorriente: " + variables.get(3).toString() +
+                                "\nPotencia: " + variables.get(4).toString() +
+                                "\nPresión: " + variables.get(5).toString();
 
                         mail.addContent(timestamp);
 
@@ -126,8 +139,10 @@ public class ExpertoClienteMail {
             System.out.println("-----------------------------------------------");
             log.info("NO SE HAN RECIBIDO MAILS.");
         }
+        return variablesPantalla;
     }
     
+    // DEVUELVE MAILS VALIDOS RECIBIDOS
     public ArrayList recibirMails(String servidor, String usuario, String contrasenia) { // DEVUELVE UNA LISTA COON LOS MAILS RECIBIDOS Y FILTRADOS
 
         ArrayList mails = new ArrayList();
@@ -195,6 +210,7 @@ public class ExpertoClienteMail {
         return mails;
     }
  
+    // DEVUELVE LOS REMITENTES VALIDOS DEL XML
     public ArrayList buscarRemitentesXML() { // DEVULVE UNA LISTA DE LOS REMITENTES PERMITIDOS
         
         ArrayList remitentes = new ArrayList();
@@ -297,7 +313,7 @@ public class ExpertoClienteMail {
         return variables;
     }
     
-    private boolean esNumero(String numero){
+    public boolean esNumero(String numero){
         try {
             Long.parseLong(numero);
             return true;
@@ -305,6 +321,8 @@ public class ExpertoClienteMail {
             return false;
     	}
     }
+    
+            
     
     
     
