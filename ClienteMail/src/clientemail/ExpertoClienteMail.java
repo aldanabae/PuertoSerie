@@ -90,7 +90,8 @@ public class ExpertoClienteMail {
                                 }
                             }
                         }
-
+                        
+                        // COMIENZA A ARMAR EL XML
                         Element mail = new Element("mail");
                         mail.setAttribute(new Attribute("id", mailRecibido.getRemitente()));
 

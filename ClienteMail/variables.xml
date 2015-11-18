@@ -351,4 +351,13 @@
       <presion>34</presion>
     </timestamp>
   </mail>
+  <mail id="ssi.proyectofinal@gmail.com">
+    <timestamp id="05-12-2015 18:15:54">
+      <temperatura>34</temperatura>
+      <tension>23</tension>
+      <corriente>78</corriente>
+      <potencia>56</potencia>
+      <presion>34</presion>
+    </timestamp>
+  </mail>
 </variables>

@@ -198,3 +198,9 @@
 18:56:48,849 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 2
 18:56:48,947 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
 18:57:47,089 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+20:04:02,173 [Timer-0] ERROR clientemail.ExpertoClienteMail null - FALLO LOGIN: Connect failed
+20:04:02,222 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+20:05:00,972 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+20:05:54,240 [Timer-1] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+20:05:55,311 [Timer-1] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+20:06:52,719 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
