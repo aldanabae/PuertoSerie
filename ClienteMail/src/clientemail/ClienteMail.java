@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.mail.Address;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jdom2.Attribute;
 import org.jdom2.Document;         // |
 import org.jdom2.Element;          // |\ Librerías
@@ -30,10 +31,27 @@ import org.jdom2.output.XMLOutputter;
 
 public class ClienteMail {
     
+    public static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExpertoClienteMail.class);
+    
     public static void main(String[] args) {
         
-        Pantalla pantalla = new Pantalla();
-        pantalla.setVisible(true);
+        DOMConfigurator.configure("log4j.xml");
+        
+//        Pantalla pantalla = new Pantalla();
+//        pantalla.setVisible(true);
+        log.warn("INICIA TIMER");
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                String variables = "";
+                ExpertoClienteMail experto = new ExpertoClienteMail();
+                String variablesRecibidas = experto.guardarVariablesXML("pop.gmail.com", "ssi.proyectofinal@gmail.com", "ssi1234*");
+                if(!variablesRecibidas.equals(""))
+                    variables = variables + variablesRecibidas + "\n";
+                
+            }
+        }, 2000, 1 * 60000);
         
     }
   

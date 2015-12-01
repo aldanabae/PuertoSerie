@@ -37,7 +37,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 public class ExpertoClienteMail {
     
-    private static final Logger log = Logger.getLogger(ExpertoClienteMail.class);
+    //private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExpertoClienteMail.class);
     
     // GUARDA LAS VARIABLES DE LOS MAILS EN EL XML
     public String guardarVariablesXML(String servidor, String usuario, String contrasenia){
@@ -52,7 +52,7 @@ public class ExpertoClienteMail {
             
             System.out.println("CANTIDAD DE MAILS RECIBIDOS: " + mails.size());
             System.out.println("-----------------------------------------------");
-            log.info("CANTIDAD DE MAILS RECIBIDOS: " + mails.size());
+            ClienteMail.log.info("CANTIDAD DE MAILS RECIBIDOS: " + mails.size());
 
             SAXBuilder builder = new SAXBuilder();
             File archivo = new File("variables.xml"); // ARCHIVO DONDE SE GUARDARAN LAS VARIABLES RECIBIDAS
@@ -77,14 +77,14 @@ public class ExpertoClienteMail {
                         for (int j = 1; j < variables.size(); j++) { 
                             if (!esNumero(variables.get(j).toString())) { // VALIDA QUE CADA VARIABLES RECIBIDA SEA UN NUMERO
                                 System.out.println(mailRecibido.getRemitente() + ": "+ variables.get(j).toString() + " NO ES UN NUMERO");
-                                log.warn(mailRecibido.getRemitente() + ": "+ variables.get(j).toString() + " NO ES UN NUMERO");
+                                ClienteMail.log.warn(mailRecibido.getRemitente() + ": "+ variables.get(j).toString() + " NO ES UN NUMERO");
                             } else{
                                 switch(j){
                                     case 1:
                                         int aux = Integer.parseInt(variables.get(j).toString());    
                                         if(aux > 100 || aux < -100){
                                             System.out.println(mailRecibido.getRemitente() + "TEMPERATURA FUERA DE RANGO");
-                                            log.warn(mailRecibido.getRemitente() + " TEMPERATURA FUERA DE RANGO");
+                                            ClienteMail.log.warn(mailRecibido.getRemitente() + " TEMPERATURA FUERA DE RANGO");
                                         }
                                     break;
                                 }
@@ -118,7 +118,7 @@ public class ExpertoClienteMail {
 
                     } else {
                         System.out.println(mailRecibido.getRemitente() + "TRAMA INCORRECTA.");
-                        log.warn(mailRecibido.getRemitente() + "TRAMA INCORRECTA.");
+                        ClienteMail.log.warn(mailRecibido.getRemitente() + "TRAMA INCORRECTA.");
                     }
                 }
 
@@ -128,17 +128,17 @@ public class ExpertoClienteMail {
                 xmlOutput.output(doc, new FileWriter("variables.xml"));
 
                 System.out.println("ARCHIVO GUARDADO.");
-                log.info("ARCHIVO GUARDADO.");
+                ClienteMail.log.info("ARCHIVO GUARDADO.");
 
             } catch (IOException io) {
-                log.error(io.getMessage());
+                ClienteMail.log.error(io.getMessage());
             } catch (JDOMException ex) {
-                log.error(ex.getMessage());
+                ClienteMail.log.error(ex.getMessage());
             }
         } else {
             System.out.println("NO SE HAN RECIBIDO MAILS");
             System.out.println("-----------------------------------------------");
-            log.info("NO SE HAN RECIBIDO MAILS.");
+            ClienteMail.log.info("NO SE HAN RECIBIDO MAILS.");
         }
         return variablesPantalla;
     }
@@ -201,12 +201,12 @@ public class ExpertoClienteMail {
             } catch (MessagingException ex) {
                 System.out.println("FALLO LOGIN");
                 System.out.println("-----------------------------------------------");
-                log.error("FALLO LOGIN: " + ex.getMessage());
+                ClienteMail.log.error("FALLO LOGIN: " + ex.getMessage());
             }
         } else {
             System.out.println("NO HAY REMITENTES EN EL XML");
             System.out.println("-----------------------------------------------");
-            log.warn("NO HAY REMITENTES VALIDOS");
+            ClienteMail.log.warn("NO HAY REMITENTES VALIDOS");
         }
         return mails;
     }
@@ -241,9 +241,9 @@ public class ExpertoClienteMail {
 
                 }
         } catch (IOException io) {
-            log.error("NO EXISTE EL ARCHIVO DE REMITENTES");
+            ClienteMail.log.error("NO EXISTE EL ARCHIVO DE REMITENTES");
         } catch (JDOMException jdomex) {
-            log.error(jdomex.getMessage());
+            ClienteMail.log.error(jdomex.getMessage());
         }
         return remitentes;
     }

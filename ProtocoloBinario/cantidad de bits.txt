@@ -1,0 +1,36 @@
+PARTE 1
+500 dispositivo -> 9 bits
+20 funcion -> 5 bits
+65536 direccion inicial -> 17 bits
+500 cantidad de variables -> 9 bits
+
+MAX 
+500 - 20 - 65536 - 500
+100101100 - 10100 - 10000000000000000 - 111110100
+
+cantidad de bytes = 40 bits = 5 bytes
+
+------------------------------------------------------------------------------
+
+PARTE 2
+
+equipo 1000 -> 10 bits
+
+dia -> 5 bits
+mes -> 4 bits
+año -> 11 bits
+
+hora -> 5 bits
+minutos -> 6 bits
+
+total bits timestamp 31 bits
+
+temp 50 -> 6 bits
+corriente 10 -> 4 bits
+tension 220 -> 8 bits
+
+MAX 
+1000 - 24/11/2015 02:19:00 - 20 - 65536 - 500
+1111101000 - 110001011111110111110010010011 - 110010 - 1010 - 11011100
+
+cantidad de bytes = 59 bits = 7,37 = 8 bytes

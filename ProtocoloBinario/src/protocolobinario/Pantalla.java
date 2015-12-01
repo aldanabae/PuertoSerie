@@ -422,7 +422,6 @@ public class Pantalla extends javax.swing.JFrame {
                                     comboMinutos.getSelectedItem().toString() + ":00";
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                             Date timestamp = sdf.parse(fechaHora);
-                            System.out.println(timestamp);
                             dto.setFechaHora(timestamp);
                             String trama = experto.armarTrama2(dto);
                             campoTrama2.setText(trama);

@@ -30,8 +30,7 @@ public class ExpertoProtocolo {
         int hora = Integer.parseInt(sdf.format(fechaHora));
         sdf = new SimpleDateFormat("mm");
         int min = Integer.parseInt(sdf.format(fechaHora));
-        System.out.println(dia+" "+mes+" "+anio+" "+hora+" "+min);
-            
+                    
         String trama = convertirBinario(dto.getIdDispositivo(), 10) +
                 " - " + convertirBinario(dia, 5) +
                 convertirBinario(mes, 4) +

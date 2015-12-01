@@ -204,3 +204,33 @@
 20:05:54,240 [Timer-1] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
 20:05:55,311 [Timer-1] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
 20:06:52,719 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:02:23,242 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:03:18,952 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:04:14,887 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:05:18,636 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+21:05:18,745 [Timer-0] WARN  clientemail.ExpertoClienteMail null - ssi.proyectofinal@gmail.comTRAMA INCORRECTA.
+21:05:18,917 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+21:06:17,723 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+21:06:17,802 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+21:07:20,394 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+21:07:20,487 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+21:08:18,757 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:09:22,349 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:10:17,030 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+21:10:17,123 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+21:10:59,418 [Timer-1] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:35:00,628 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:35:54,177 [Timer-0] INFO  clientemail.ExpertoClienteMail null - CANTIDAD DE MAILS RECIBIDOS: 1
+21:35:54,504 [Timer-0] INFO  clientemail.ExpertoClienteMail null - ARCHIVO GUARDADO.
+21:36:48,653 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:37:50,496 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:38:52,367 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:39:51,537 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:40:51,336 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:41:50,121 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:42:48,484 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+21:43:48,796 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:03:17,258 [main] WARN  clientemail.ExpertoClienteMail null - INICIA TIMER
+22:03:41,406 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
+22:05:04,528 [main] WARN  clientemail.ExpertoClienteMail null - INICIA TIMER
+22:05:27,569 [Timer-0] INFO  clientemail.ExpertoClienteMail null - NO SE HAN RECIBIDO MAILS.
